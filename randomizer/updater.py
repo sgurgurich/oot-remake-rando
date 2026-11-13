@@ -1,7 +1,9 @@
 """Self-update from GitHub Releases.
 
 At launch the app asks the GitHub API for the latest release of REPO. If its tag (vX.Y.Z) is
-newer than VERSION, the release's OoTRando.exe is downloaded next to the running exe as
+newer than VERSION, the release's OoTRando-update.exe (the same file as OoTRando.exe, published
+under a second name so GitHub's download counts tell updates from new installs; older releases
+only have OoTRando.exe) is downloaded next to the running exe as
 OoTRando.exe.new and checked against the SHA-256 in the release's OoTRando.exe.sha256 (written
 by the release workflow). Nothing is replaced until that matches.
 
@@ -16,7 +18,8 @@ No personal data is sent: the requests carry a generic User-Agent and nothing el
 import hashlib, json, os, subprocess, sys, threading, urllib.request
 
 REPO = 'sgurgurich/oot-remake-rando'
-ASSET = 'OoTRando.exe'
+ASSET = 'OoTRando.exe'                # what people download from the page; its checksum file names it
+UPDATE_ASSET = 'OoTRando-update.exe'  # same bytes, only fetched by this updater
 API = 'https://api.github.com/repos/%s/releases/latest' % REPO
 UA = {'User-Agent': 'OoTRando-updater', 'Accept': 'application/vnd.github+json'}
 TIMEOUT = 8
@@ -51,7 +54,7 @@ def latest():
     if rel.get('draft') or rel.get('prerelease'):
         return None
     assets = {a['name']: a for a in rel.get('assets', [])}
-    exe, sha = assets.get(ASSET), assets.get(ASSET + '.sha256')
+    exe, sha = assets.get(UPDATE_ASSET) or assets.get(ASSET), assets.get(ASSET + '.sha256')
     ver = parse(rel.get('tag_name'))
     if not (exe and sha and ver):
         return None

@@ -1,0 +1,47 @@
+name: Download stats
+
+# Once a day, records every release's download counts (from GitHub's own counters) to the
+# `stats` branch: downloads.csv for the history and README.md as a readable summary.
+# Open https://github.com/<owner>/<repo>/tree/stats to see it. Also runs on demand.
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stats
+  cancel-in-progress: false
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check out the stats branch
+        run: |
+          if git ls-remote --exit-code --heads origin stats >/dev/null; then
+            git fetch origin stats
+            git worktree add stats-data origin/stats
+            git -C stats-data checkout -B stats
+          else
+            git worktree add --orphan -b stats stats-data
+          fi
+
+      - name: Record today's counts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python tools/download_stats.py --record stats-data
+
+      - name: Commit
+        working-directory: stats-data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "no change"; exit 0; fi
+          git commit -m "Download stats $(date -u +%F)"
+          git push origin stats
