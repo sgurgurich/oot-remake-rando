@@ -31,6 +31,31 @@ See [randomizer/updater.py](randomizer/updater.py).
 `work/`, `out/`, `build/`, `dist/` or over 2 MB). It runs in CI and as a pre-commit hook; enable the hook
 in a clone with `git config core.hooksPath .githooks`.
 
+## Download stats
+
+The app collects nothing. Download numbers come from the counters GitHub keeps for every release
+file:
+
+```
+py tools/download_stats.py          # counts per release, right now
+```
+
+From v0.8.2 each release has the app twice: `OoTRando.exe` (the download page and direct links: new
+installs) and `OoTRando-update.exe` (fetched only by the app's updater: updates). Earlier releases
+only had `OoTRando.exe`, so their counts include updates.
+
+The **Download stats** workflow ([.github/workflows/stats.yml](.github/workflows/stats.yml)) runs daily
+and keeps the history on the `stats` branch: `downloads.csv` (one row per release per day) and a
+`README.md` with totals, the last 30 days and a per-release table, which GitHub shows at
+[github.com/sgurgurich/oot-remake-rando/tree/stats](https://github.com/sgurgurich/oot-remake-rando/tree/stats).
+Views of the repository and its referrers are under the repo's **Insights > Traffic** (GitHub keeps 14
+days). GitHub Pages has no built-in visitor counts.
+
+## License
+
+The code is under the [MIT License](LICENSE). Game names, text and data the tools read belong to
+their owners; no game files are included, and the app only reads your own dump.
+
 ## What the dump is
 
 `*.nup` is an unencrypted container that holds both the base game (`base/`) and the 2.0 update

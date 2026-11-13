@@ -67,6 +67,9 @@ jobs:
         run: |
           $h = (Get-FileHash dist/OoTRando.exe -Algorithm SHA256).Hash.ToLower()
           [IO.File]::WriteAllText("$PWD/dist/OoTRando.exe.sha256", "$h  OoTRando.exe")
+          # Same file under a second name, used only by the app's updater, so the release's
+          # download counts split into new installs (OoTRando.exe) and updates.
+          Copy-Item dist/OoTRando.exe dist/OoTRando-update.exe
           "SHA-256: $h"
 
       - name: Publish release
@@ -76,6 +79,6 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $v = "${{ steps.v.outputs.version }}"
-          gh release create "v$v" dist/OoTRando.exe dist/OoTRando.exe.sha256 `
+          gh release create "v$v" dist/OoTRando.exe dist/OoTRando-update.exe dist/OoTRando.exe.sha256 `
             --repo "${{ github.repository }}" --target "${{ github.sha }}" `
             --title "OoT Remake Randomizer $v" --generate-notes
