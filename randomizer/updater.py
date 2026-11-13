@@ -139,7 +139,11 @@ def apply_and_restart(args=None):
         raise
     try: os.remove(shaf)
     except OSError: pass
-    subprocess.Popen([exe] + list(sys.argv[1:] if args is None else args), close_fds=True)
+    # A process started from a PyInstaller app inherits its bootloader variables; without a reset
+    # the new exe treats itself as part of this (exiting) one and never opens its window.
+    env = dict(os.environ, PYINSTALLER_RESET_ENVIRONMENT='1')
+    subprocess.Popen([exe] + list(sys.argv[1:] if args is None else args), close_fds=True, env=env,
+                     cwd=os.path.dirname(exe))
     return True
 
 
