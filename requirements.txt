@@ -1,0 +1,6 @@
+# Running from source and the tools
+zstandard==0.25.0
+pywebview==6.2.1
+texture2ddecoder==1.0.6
+# Building the exe (py build_exe.py)
+pyinstaller==6.22.3

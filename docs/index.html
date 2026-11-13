@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OoT Remake Randomizer</title>
+<meta name="description" content="An item randomizer for the Switch 2 Ocarina of Time remake. Windows app; bring your own game dump.">
+<style>
+:root {
+  --bg0: #050f0a; --bg1: #0a1f15; --panel: rgba(9, 26, 17, .74); --line: rgba(232, 197, 106, .22); --line-hi: rgba(232, 197, 106, .55);
+  --gold: #e8c56a; --gold-hi: #f7e1a0; --gold-lo: #a9852f; --text: #eef3ea; --muted: #a8b9a9; --faint: #6f8574;
+  --forest: #49c27a; --fire: #ef6247; --water: #4f9cf0; --shadow: #a874e6; --spirit: #f0973a; --light: #f4d867; --bad: #ff8a78;
+  --serif: "Palatino Linotype", "Book Antiqua", Palatino, Constantia, Georgia, serif;
+  --sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--text); font: 15px/1.55 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  background: radial-gradient(1100px 650px at 10% -10%, rgba(73, 194, 122, .16), transparent 60%),
+              radial-gradient(900px 600px at 100% 0%, rgba(232, 197, 106, .10), transparent 60%),
+              linear-gradient(180deg, var(--bg1), var(--bg0) 70%); background-attachment: fixed; }
+a { color: var(--gold-hi); }
+#fx { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.wrap { position: relative; z-index: 1; max-width: 1040px; margin: 0 auto; padding: 0 20px 60px; }
+nav { display: flex; align-items: center; gap: 12px; padding: 18px 0; }
+nav .name { font: 400 17px var(--serif); color: var(--gold-hi); letter-spacing: .04em; }
+nav a.gh { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; color: var(--muted); text-decoration: none; font-weight: 600;
+  padding: 7px 12px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, .12); }
+nav a.gh:hover { color: var(--text); border-color: var(--line-hi); }
+nav svg { width: 18px; height: 18px; }
+.hero { text-align: center; padding: 56px 0 40px; }
+.emblem { width: 120px; height: 120px; filter: drop-shadow(0 0 24px rgba(232, 197, 106, .35)); }
+.emblem .ring { transform-origin: 50px 50px; animation: spin 60s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.kicker { margin-top: 18px; font: 600 12px var(--sans); letter-spacing: .32em; text-transform: uppercase; color: var(--gold); }
+h1 { margin: 10px 0 12px; font: 400 clamp(34px, 6vw, 56px)/1.05 var(--serif); letter-spacing: .03em;
+  background: linear-gradient(180deg, var(--gold-hi), var(--gold) 55%, var(--gold-lo)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lede { max-width: 620px; margin: 0 auto; color: var(--muted); font-size: 17px; }
+.dl { margin: 34px auto 10px; display: inline-flex; flex-direction: column; align-items: center; gap: 4px; padding: 16px 40px; border-radius: 16px;
+  text-decoration: none; color: #1c1305; background: linear-gradient(180deg, #fbe8ad, var(--gold) 45%, #c79b3c); border: 1px solid #fff2c4;
+  box-shadow: 0 14px 40px -10px rgba(232, 197, 106, .8), inset 0 1px 0 rgba(255, 255, 255, .7); position: relative; overflow: hidden; transition: transform .15s, box-shadow .25s; }
+.dl:hover { transform: translateY(-2px); box-shadow: 0 20px 50px -10px rgba(232, 197, 106, .9), inset 0 1px 0 rgba(255, 255, 255, .7); }
+.dl b { font: 400 22px var(--serif); letter-spacing: .05em; }
+.dl small { font-weight: 600; opacity: .75; }
+.dl::after { content: ""; position: absolute; top: 0; bottom: 0; width: 70px; left: -100px; transform: skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .75), transparent); animation: shine 3.6s ease-in-out infinite; }
+@keyframes shine { 0%, 55% { left: -100px; } 85%, 100% { left: 120%; } }
+.meta { color: var(--faint); font-size: 13px; }
+.meta code { font: 12px Consolas, monospace; color: var(--muted); word-break: break-all; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 30px; }
+.card { position: relative; padding: 20px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line); backdrop-filter: blur(10px); }
+.card::before { content: ""; position: absolute; left: 20px; right: 20px; top: -1px; height: 1px; background: linear-gradient(90deg, transparent, var(--c, var(--gold)), transparent); }
+.card h3 { margin: 0 0 6px; font: 400 18px var(--serif); color: var(--gold-hi); }
+.card p { margin: 0; color: var(--muted); font-size: 14px; }
+.card .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); margin-right: 8px; }
+h2 { margin: 56px 0 6px; font: 400 26px var(--serif); color: var(--gold-hi); }
+.sub { color: var(--muted); margin: 0 0 18px; }
+ol.steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+ol.steps li { counter-increment: s; display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); }
+ol.steps li::before { content: counter(s, upper-roman); flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  font: 600 13px var(--serif); color: #1a1206; background: radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold) 55%, var(--gold-lo)); }
+ol.steps b { color: var(--text); }
+ol.steps span { color: var(--muted); }
+.notes { padding: 16px 18px; border-radius: 14px; background: rgba(0, 0, 0, .25); border: 1px solid rgba(255, 255, 255, .06); color: var(--muted);
+  white-space: pre-wrap; font-size: 13.5px; max-height: 320px; overflow: auto; }
+.req { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+.req div { padding: 12px 14px; border-radius: 12px; background: rgba(0, 0, 0, .22); border: 1px solid rgba(255, 255, 255, .06); color: var(--muted); }
+.req b { color: var(--text); display: block; }
+footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, .08); color: var(--faint); font-size: 13px; }
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s, transform .7s cubic-bezier(.2, .8, .2, 1); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<div class="wrap">
+  <nav>
+    <span class="name">OoT Remake Randomizer</span>
+    <a class="gh" id="ghLink" href="https://github.com/sgurgurich/oot-remake-rando"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg>Source on GitHub</a>
+  </nav>
+
+  <section class="hero">
+    <svg class="emblem" viewBox="0 0 100 100" aria-hidden="true">
+      <defs><radialGradient id="g" cx=".35" cy=".3"><stop offset="0" stop-color="#fff6d2"/><stop offset=".5" stop-color="#e8c56a"/><stop offset="1" stop-color="#8a6a22"/></radialGradient></defs>
+      <g class="ring"><circle cx="50" cy="50" r="40" fill="none" stroke="url(#g)" stroke-width="3"/>
+        <circle cx="50" cy="50" r="33" fill="none" stroke="#e8c56a" stroke-opacity=".35" stroke-dasharray="2 4"/>
+        <circle cx="50" cy="10" r="5.2" fill="#49c27a"/><circle cx="84.6" cy="30" r="5.2" fill="#ef6247"/><circle cx="84.6" cy="70" r="5.2" fill="#4f9cf0"/>
+        <circle cx="50" cy="90" r="5.2" fill="#a874e6"/><circle cx="15.4" cy="70" r="5.2" fill="#f0973a"/><circle cx="15.4" cy="30" r="5.2" fill="#f4d867"/></g>
+      <polygon points="50,30 67,60 33,60" fill="none" stroke="url(#g)" stroke-width="2.4" stroke-linejoin="round"/><circle cx="50" cy="50" r="5" fill="url(#g)"/>
+    </svg>
+    <div class="kicker">Switch 2 remake &middot; Windows app</div>
+    <h1>Ocarina of Time Randomizer</h1>
+    <p class="lede">Shuffles where every item is, opens story lockouts if you want, and builds a patched copy of your own game dump to load in your emulator. Every seed is checked to be beatable.</p>
+    <a class="dl" id="dl" href="https://github.com/sgurgurich/oot-remake-rando/releases/latest/download/OoTRando.exe">
+      <b>Download for Windows</b><small id="dlInfo">Latest release</small></a>
+    <div class="meta" id="meta">Checking the latest release&hellip;</div>
+  </section>
+
+  <div class="grid">
+    <div class="card reveal" style="--c:var(--light)"><h3><span class="dot"></span>Where items hide</h3><p>Chests, Gold Skulltulas, pots and crates, Heart Pieces, Business Scrubs, and shop stock and prices. Switch each one on or off.</p></div>
+    <div class="card reveal" style="--c:var(--forest)"><h3><span class="dot"></span>Logic or chaos</h3><p>With logic, every item is reachable with what you found before it. With no logic, anything goes.</p></div>
+    <div class="card reveal" style="--c:var(--water)"><h3><span class="dot"></span>Open the world</h3><p>Start with Kokiri Forest, the Deku Tree, the Door of Time or Zora's Fountain already open. The logic follows.</p></div>
+    <div class="card reveal" style="--c:var(--shadow)"><h3><span class="dot"></span>Item tracker</h3><p>An overlay on top of the emulator that lights up what you've found. Show or hide it with a controller combo.</p></div>
+    <div class="card reveal" style="--c:var(--fire)"><h3><span class="dot"></span>Fewer cutscenes</h3><p>Skip the intro, and make every cutscene skippable, including the three the game normally locks.</p></div>
+    <div class="card reveal" style="--c:var(--spirit)"><h3><span class="dot"></span>Updates itself</h3><p>The app checks for a new build when it opens, downloads and verifies it, and switches over when you restart.</p></div>
+  </div>
+
+  <h2 class="reveal">How it works</h2>
+  <p class="sub reveal">Nothing from the game is included or downloaded. The app only reads the dump you made from your own cartridge.</p>
+  <ol class="steps reveal">
+    <li><div><b>Download and open the app.</b> <span>One file, nothing to install. Windows may ask once whether to run a new app.</span></div></li>
+    <li><div><b>Pick your dump.</b> <span>Your own <code>.nup</code> of the game with the 2.0 update. The app checks every file it needs and never changes the original.</span></div></li>
+    <li><div><b>Choose what to shuffle and press Forge.</b> <span>You get <code>OoTRando-&lt;seed&gt;.nup</code>, a patched copy of your dump, plus an optional spoiler log.</span></div></li>
+    <li><div><b>Load the new .nup in your emulator.</b> <span>It shows up with its own name, "OoT Remake Rando" and the date by default.</span></div></li>
+  </ol>
+
+  <h2 class="reveal">You'll need</h2>
+  <div class="req reveal">
+    <div><b>Windows 10 or 11</b>The app window uses Microsoft Edge WebView2, which Windows 11 already has.</div>
+    <div><b>Your own game dump</b>A <code>.nup</code> made from your own cartridge, with the 2.0 update.</div>
+    <div><b>About 26 GB free</b>The patched dump is a full copy with the changes applied.</div>
+    <div><b>An emulator that loads .nup</b>The output works like the original dump.</div>
+  </div>
+
+  <h2 class="reveal" id="newHead">What's new</h2>
+  <div class="notes reveal" id="notes">Loading&hellip;</div>
+
+  <footer>
+    A fan project, not affiliated with or endorsed by Nintendo. It contains no game code, assets or files, and you need your own copy of the game.
+    Experimental: not every option has been tested on a full playthrough. &middot; <a href="https://github.com/sgurgurich/oot-remake-rando/releases">All releases</a>
+  </footer>
+</div>
+<script>
+const REPO = 'sgurgurich/oot-remake-rando';
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+async function loadRelease() {
+  try {
+    const r = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`, { headers: { Accept: 'application/vnd.github+json' } });
+    if (!r.ok) throw new Error(r.status);
+    const rel = await r.json();
+    const exe = (rel.assets || []).find(a => a.name === 'OoTRando.exe');
+    const sha = (rel.assets || []).find(a => a.name === 'OoTRando.exe.sha256');
+    const date = new Date(rel.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    $('#dlInfo').textContent = `${rel.tag_name}${exe ? ' · ' + (exe.size / 1048576).toFixed(1) + ' MB' : ''}`;
+    $('#meta').innerHTML = `Released ${esc(date)} &middot; <a href="${esc(rel.html_url)}">release notes</a>`;
+    if (sha) {
+      const t = await fetch(sha.browser_download_url).then(x => x.ok ? x.text() : '').catch(() => '');
+      if (t) $('#meta').innerHTML += `<br>SHA-256 <code>${esc(t.split(/\s+/)[0])}</code>`;
+    }
+    $('#newHead').textContent = `What's new in ${rel.tag_name}`;
+    $('#notes').textContent = (rel.body || 'No notes for this release.').replace(/\*\*/g, '');
+  } catch (e) {
+    $('#meta').innerHTML = `Couldn't reach GitHub just now. The button still downloads the newest build. <a href="https://github.com/${REPO}/releases">All releases</a>`;
+    $('#notes').textContent = 'See the releases page for notes.';
+  }
+}
+loadRelease();
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = (i % 6) * 60 + 'ms'; io.observe(el); });
+
+// drifting fairy lights
+(() => {
+  const cv = $('#fx'), ctx = cv.getContext('2d'); let W, H, d;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const size = () => { d = devicePixelRatio || 1; W = cv.width = innerWidth * d; H = cv.height = innerHeight * d; cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px'; };
+  size(); addEventListener('resize', size);
+  const motes = Array.from({ length: 40 }, () => ({ x: Math.random(), y: Math.random(), r: .6 + Math.random() * 1.6, s: .00004 + Math.random() * .0001, p: Math.random() * 6.28, c: Math.random() < .7 ? '247,225,160' : '160,240,190' }));
+  let last = performance.now();
+  function frame(now) {
+    const dt = Math.min(50, now - last); last = now; ctx.clearRect(0, 0, W, H); ctx.globalCompositeOperation = 'lighter';
+    for (const m of motes) {
+      m.y -= m.s * dt; m.p += dt * .001; if (m.y < -.02) { m.y = 1.02; m.x = Math.random(); }
+      const x = (m.x + Math.sin(m.p) * .01) * W, y = m.y * H, a = Math.max(0, .25 + Math.sin(m.p * 2.3) * .2), r = m.r * 4 * d;
+      const g = ctx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, `rgba(${m.c},${a})`); g.addColorStop(1, `rgba(${m.c},0)`);
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

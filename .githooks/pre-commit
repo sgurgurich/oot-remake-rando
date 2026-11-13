@@ -1,0 +1,8 @@
+#!/bin/sh
+# Blocks commits that contain .nup dumps or any game file (see tools/check_no_game_files.py).
+# Enabled with: git config core.hooksPath .githooks
+if command -v py >/dev/null 2>&1; then
+  exec py tools/check_no_game_files.py --staged
+else
+  exec python tools/check_no_game_files.py --staged
+fi

@@ -1,0 +1,22 @@
+# Never commit game dumps or game files (also enforced by tools/check_no_game_files.py,
+# the pre-commit hook in .githooks/ and CI).
+*.nup
+*.nsp
+*.nsz
+*.xci
+*.xcz
+*.nca
+*.zs
+*.bntx
+*.sav
+work/
+filelist.txt
+
+# Generated
+out/
+build/
+dist/
+*.spec
+__pycache__/
+*.pyc
+*.part

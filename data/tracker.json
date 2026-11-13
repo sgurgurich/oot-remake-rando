@@ -1,0 +1,1125 @@
+{
+ "groups": [
+  {
+   "title": "Items",
+   "color": "var(--gold)",
+   "items": [
+    {
+     "key": "Weapon_Range_SlingShot",
+     "stages": [
+      {
+       "actor": "Weapon_Range_SlingShot",
+       "flag": 247607009,
+       "name": "Fairy Slingshot",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_Boomerang",
+     "stages": [
+      {
+       "actor": "Item_Boomerang",
+       "flag": 2135745421,
+       "name": "Boomerang",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_BombBag_Small",
+     "stages": [
+      {
+       "actor": "Item_BombBag_Small",
+       "flag": 2789154349,
+       "name": "Bomb Bag",
+       "icon": true
+      },
+      {
+       "actor": "Item_BombBag_Medium",
+       "flag": 2999220442,
+       "name": "Bigger Bomb Bag",
+       "icon": true
+      },
+      {
+       "actor": "Item_BombBag_Large",
+       "flag": 2525649529,
+       "name": "Biggest Bomb Bag",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_Bombchu",
+     "stages": [
+      {
+       "actor": "Item_Bombchu",
+       "flag": 1521785998,
+       "name": "Bombchu",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Weapon_Range_Bow",
+     "stages": [
+      {
+       "actor": "Weapon_Range_Bow",
+       "flag": 1777084606,
+       "name": "Fairy Bow",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_Arrow_Fire",
+     "stages": [
+      {
+       "actor": "Item_Arrow_Fire",
+       "flag": 1303898848,
+       "name": "Fire Arrow",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_Arrow_Ice",
+     "stages": [
+      {
+       "actor": "Item_Arrow_Ice",
+       "flag": 1552887961,
+       "name": "Ice Arrow",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_Arrow_Light",
+     "stages": [
+      {
+       "actor": "Item_Arrow_Light",
+       "flag": 2251799220,
+       "name": "Light Arrow",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_Hookshot",
+     "stages": [
+      {
+       "actor": "Item_Hookshot",
+       "flag": 4288212312,
+       "name": "Hookshot",
+       "icon": true
+      },
+      {
+       "actor": "Item_Longshot",
+       "flag": 950969275,
+       "name": "Longshot",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_Hammer",
+     "stages": [
+      {
+       "actor": "Item_Hammer",
+       "flag": 1915219928,
+       "name": "Megaton Hammer",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Armor_GlassTruth",
+     "stages": [
+      {
+       "actor": "Armor_GlassTruth",
+       "flag": 2145559986,
+       "name": "Lenses of Truth",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_MagicBean",
+     "stages": [
+      {
+       "actor": "Item_MagicBean",
+       "flag": 1832502784,
+       "name": "Magic Beans",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_DinFire",
+     "stages": [
+      {
+       "actor": "Item_DinFire",
+       "flag": 4194625041,
+       "name": "Din's Fire",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_FaroreWind",
+     "stages": [
+      {
+       "actor": "Item_FaroreWind",
+       "flag": 4289458264,
+       "name": "Farore's Wind",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_NayruLove",
+     "stages": [
+      {
+       "actor": "Item_NayruLove",
+       "flag": 11813441,
+       "name": "Nayru's Love",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_Ocarina_Fairy",
+     "stages": [
+      {
+       "actor": "Item_Ocarina_Fairy",
+       "flag": 1119693167,
+       "name": "Fairy Ocarina",
+       "icon": true
+      },
+      {
+       "actor": "Item_Ocarina_Time",
+       "flag": 497206545,
+       "name": "Ocarina of Time",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_Bottle",
+     "stages": [
+      {
+       "actor": "Item_Bottle",
+       "flag": 285651074,
+       "name": "Empty Bottle",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null,
+     "count": "bottles",
+     "max": 6
+    },
+    {
+     "key": "Item_DekuStick",
+     "stages": [
+      {
+       "actor": "Item_DekuStick",
+       "flag": 3303152322,
+       "name": "Deku Stick",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_DekuNut",
+     "stages": [
+      {
+       "actor": "Item_DekuNut",
+       "flag": 12774967,
+       "name": "Deku Nut",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    }
+   ]
+  },
+  {
+   "title": "Equipment",
+   "color": "var(--water)",
+   "items": [
+    {
+     "key": "Weapon_Sword_Kokiri",
+     "stages": [
+      {
+       "actor": "Weapon_Sword_Kokiri",
+       "flag": 1079872015,
+       "name": "Kokiri Sword",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Weapon_Sword_Master",
+     "stages": [
+      {
+       "actor": "Weapon_Sword_Master",
+       "flag": 2061733467,
+       "name": "Master Sword",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Weapon_Sword_Giant",
+     "stages": [
+      {
+       "actor": "Weapon_Sword_Giant",
+       "flag": 511856378,
+       "name": "Giant's Knife",
+       "icon": true
+      },
+      {
+       "actor": "Weapon_Sword_Biggoron",
+       "flag": 860252178,
+       "name": "Biggoron Sword",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Weapon_Shield_Deku",
+     "stages": [
+      {
+       "actor": "Weapon_Shield_Deku",
+       "flag": 1377294878,
+       "name": "Deku Shield",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Weapon_Shield_Hylian",
+     "stages": [
+      {
+       "actor": "Weapon_Shield_Hylian",
+       "flag": 797015380,
+       "name": "Hylian Shield",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Weapon_Shield_Mirror",
+     "stages": [
+      {
+       "actor": "Weapon_Shield_Mirror",
+       "flag": 1978224194,
+       "name": "Mirror Shield",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Armor_Adult_Goron",
+     "stages": [
+      {
+       "actor": "Armor_Adult_Goron",
+       "flag": 2924876207,
+       "name": "Goron Tunic",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Armor_Adult_Zora",
+     "stages": [
+      {
+       "actor": "Armor_Adult_Zora",
+       "flag": 1331335836,
+       "name": "Zora Tunic",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Armor_Adult_HeavyBoot",
+     "stages": [
+      {
+       "actor": "Armor_Adult_HeavyBoot",
+       "flag": 1604423910,
+       "name": "Iron Boots",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Armor_Adult_HoverBoot",
+     "stages": [
+      {
+       "actor": "Armor_Adult_HoverBoot",
+       "flag": 285853984,
+       "name": "Hover Boots",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    }
+   ]
+  },
+  {
+   "title": "Upgrades",
+   "color": "var(--forest)",
+   "items": [
+    {
+     "key": "Armor_Child_Gauntlet_Goron",
+     "stages": [
+      {
+       "actor": "Armor_Child_Gauntlet_Goron",
+       "flag": 2558554238,
+       "name": "Goron Bracelet",
+       "icon": true
+      },
+      {
+       "actor": "Armor_Adult_Gauntlet_Silver",
+       "flag": 2279968227,
+       "name": "Silver Gauntlets",
+       "icon": true
+      },
+      {
+       "actor": "Armor_Adult_Gauntlet_Gold",
+       "flag": 1056005828,
+       "name": "Golden Gauntlets",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_Scale_Silver",
+     "stages": [
+      {
+       "actor": "Item_Scale_Silver",
+       "flag": 302578494,
+       "name": "Silver Scale",
+       "icon": true
+      },
+      {
+       "actor": "Item_Scale_Gold",
+       "flag": 3435237530,
+       "name": "Golden Scale",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_Wallet_Medium",
+     "stages": [
+      {
+       "actor": "Item_Wallet_Medium",
+       "flag": 3509980648,
+       "name": "Adult's Wallet",
+       "icon": true
+      },
+      {
+       "actor": "Item_Wallet_Large",
+       "flag": 3036877200,
+       "name": "Giant's Wallet",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_FairyBless_MP",
+     "stages": [
+      {
+       "actor": "Item_FairyBless_MP",
+       "flag": 2972749939,
+       "name": "Gift of Improved Spin",
+       "icon": true
+      },
+      {
+       "actor": "Item_FairyBless_MPDouble",
+       "flag": 2278180902,
+       "name": "Gift of Doubled Magic",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_FairyBless_DefenseDouble",
+     "stages": [
+      {
+       "actor": "Item_FairyBless_DefenseDouble",
+       "flag": 2487974078,
+       "name": "Gift of Halved Damage",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_AgonyStone",
+     "stages": [
+      {
+       "actor": "Item_AgonyStone",
+       "flag": 3713564376,
+       "name": "Echo Gem",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_Token_Gerudo",
+     "stages": [
+      {
+       "actor": "Item_Token_Gerudo",
+       "flag": 241329351,
+       "name": "Gerudo Pass",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    }
+   ]
+  },
+  {
+   "title": "Trading",
+   "color": "var(--spirit)",
+   "items": [
+    {
+     "key": "Item_WeirdEgg",
+     "stages": [
+      {
+       "actor": "Item_WeirdEgg",
+       "flag": 1152062599,
+       "name": "Weird Egg",
+       "icon": true
+      },
+      {
+       "actor": "Item_AlarmCucco",
+       "flag": 345018726,
+       "name": "Wake-Up Cucco",
+       "icon": true
+      },
+      {
+       "actor": "Item_ZeldaLetter",
+       "flag": 4052980661,
+       "name": "Zelda's Letter",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Armor_Child_Mask_Keaton",
+     "stages": [
+      {
+       "actor": "Armor_Child_Mask_Keaton",
+       "flag": 902172189,
+       "name": "Keaton Mask",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Armor_Child_Mask_Skull",
+     "stages": [
+      {
+       "actor": "Armor_Child_Mask_Skull",
+       "flag": 3499575338,
+       "name": "Skull Mask",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Armor_Child_Mask_Spooky",
+     "stages": [
+      {
+       "actor": "Armor_Child_Mask_Spooky",
+       "flag": 3234818215,
+       "name": "Spooky Mask",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Armor_Child_Mask_Bunny",
+     "stages": [
+      {
+       "actor": "Armor_Child_Mask_Bunny",
+       "flag": 1705950743,
+       "name": "Bunny Hood",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Armor_Child_Mask_Truth",
+     "stages": [
+      {
+       "actor": "Armor_Child_Mask_Truth",
+       "flag": 4157980060,
+       "name": "Mask of Truth",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Armor_Child_Mask_Goron",
+     "stages": [
+      {
+       "actor": "Armor_Child_Mask_Goron",
+       "flag": 2919026065,
+       "name": "Goron Mask",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Armor_Child_Mask_Zora",
+     "stages": [
+      {
+       "actor": "Armor_Child_Mask_Zora",
+       "flag": 672051214,
+       "name": "Zora Mask",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Armor_Child_Mask_Gerudo",
+     "stages": [
+      {
+       "actor": "Armor_Child_Mask_Gerudo",
+       "flag": 2986101789,
+       "name": "Gerudo Mask",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    },
+    {
+     "key": "Item_PocketEgg",
+     "stages": [
+      {
+       "actor": "Item_PocketEgg",
+       "flag": 3969659190,
+       "name": "Pocket Egg",
+       "icon": true
+      },
+      {
+       "actor": "Item_PocketCucco",
+       "flag": 3895354387,
+       "name": "Pocket Cucco",
+       "icon": true
+      },
+      {
+       "actor": "Item_CojiroCucco",
+       "flag": 4215554782,
+       "name": "Cojiro",
+       "icon": true
+      },
+      {
+       "actor": "Item_OddMushroom",
+       "flag": 3419899178,
+       "name": "Odd Mushroom",
+       "icon": true
+      },
+      {
+       "actor": "Item_OddPowder",
+       "flag": 3076180653,
+       "name": "Odd Poultice",
+       "icon": true
+      },
+      {
+       "actor": "Item_PoacherSaw",
+       "flag": 2290962521,
+       "name": "Poacher's Saw",
+       "icon": true
+      },
+      {
+       "actor": "Item_BrokenSword",
+       "flag": 1683652981,
+       "name": "Broken Goron Sword",
+       "icon": true
+      },
+      {
+       "actor": "Item_Prescription",
+       "flag": 3639693854,
+       "name": "Prescription",
+       "icon": true
+      },
+      {
+       "actor": "Item_EyeballFrog",
+       "flag": 2382549450,
+       "name": "Eyeball Frog",
+       "icon": true
+      },
+      {
+       "actor": "Item_EyeDrop",
+       "flag": 3082671479,
+       "name": "Specialty Eye Drops",
+       "icon": true
+      },
+      {
+       "actor": "Item_ClaimCheck",
+       "flag": 2337597056,
+       "name": "Biggoron Receipt",
+       "icon": true
+      }
+     ],
+     "tint": null,
+     "drawn": null
+    }
+   ]
+  },
+  {
+   "title": "Songs",
+   "color": "var(--shadow)",
+   "items": [
+    {
+     "key": "Item_Melody_ZeldaLullaby",
+     "stages": [
+      {
+       "actor": "Item_Melody_ZeldaLullaby",
+       "flag": 29491202,
+       "name": "Zelda's Lullaby",
+       "icon": false
+      }
+     ],
+     "tint": "#c9a4ff",
+     "drawn": "note"
+    },
+    {
+     "key": "Item_Melody_EponaSong",
+     "stages": [
+      {
+       "actor": "Item_Melody_EponaSong",
+       "flag": 3029511219,
+       "name": "Epona's Song",
+       "icon": false
+      }
+     ],
+     "tint": "#f3a35b",
+     "drawn": "note"
+    },
+    {
+     "key": "Item_Melody_SariaSong",
+     "stages": [
+      {
+       "actor": "Item_Melody_SariaSong",
+       "flag": 3556294604,
+       "name": "Saria's Song",
+       "icon": false
+      }
+     ],
+     "tint": "#6fdc8c",
+     "drawn": "note"
+    },
+    {
+     "key": "Item_Melody_SunSong",
+     "stages": [
+      {
+       "actor": "Item_Melody_SunSong",
+       "flag": 375247277,
+       "name": "Sun's Song",
+       "icon": false
+      }
+     ],
+     "tint": "#ffd75e",
+     "drawn": "note"
+    },
+    {
+     "key": "Item_Melody_TimeSong",
+     "stages": [
+      {
+       "actor": "Item_Melody_TimeSong",
+       "flag": 62080270,
+       "name": "Song of Time",
+       "icon": false
+      }
+     ],
+     "tint": "#78b6ff",
+     "drawn": "note"
+    },
+    {
+     "key": "Item_Melody_StormSong",
+     "stages": [
+      {
+       "actor": "Item_Melody_StormSong",
+       "flag": 725212495,
+       "name": "Song of Storms",
+       "icon": false
+      }
+     ],
+     "tint": "#a9c2d6",
+     "drawn": "note"
+    },
+    {
+     "key": "Item_Melody_ForestMinuet",
+     "stages": [
+      {
+       "actor": "Item_Melody_ForestMinuet",
+       "flag": 3691645780,
+       "name": "Minuet of the Forest",
+       "icon": false
+      }
+     ],
+     "tint": "#49c27a",
+     "drawn": "note"
+    },
+    {
+     "key": "Item_Melody_FireBolero",
+     "stages": [
+      {
+       "actor": "Item_Melody_FireBolero",
+       "flag": 1225005753,
+       "name": "Bolero of Fire",
+       "icon": false
+      }
+     ],
+     "tint": "#ef6247",
+     "drawn": "note"
+    },
+    {
+     "key": "Item_Melody_WaterSerenade",
+     "stages": [
+      {
+       "actor": "Item_Melody_WaterSerenade",
+       "flag": 1067858310,
+       "name": "Serenade of Water",
+       "icon": false
+      }
+     ],
+     "tint": "#4f9cf0",
+     "drawn": "note"
+    },
+    {
+     "key": "Item_Melody_SpiritRequiem",
+     "stages": [
+      {
+       "actor": "Item_Melody_SpiritRequiem",
+       "flag": 2150250152,
+       "name": "Requiem of Spirit",
+       "icon": false
+      }
+     ],
+     "tint": "#f0973a",
+     "drawn": "note"
+    },
+    {
+     "key": "Item_Melody_ShadowNocturne",
+     "stages": [
+      {
+       "actor": "Item_Melody_ShadowNocturne",
+       "flag": 3271267828,
+       "name": "Nocturne of Shadow",
+       "icon": false
+      }
+     ],
+     "tint": "#a874e6",
+     "drawn": "note"
+    },
+    {
+     "key": "Item_Melody_LightPrelude",
+     "stages": [
+      {
+       "actor": "Item_Melody_LightPrelude",
+       "flag": 3593604004,
+       "name": "Prelude of Light",
+       "icon": false
+      }
+     ],
+     "tint": "#f4d867",
+     "drawn": "note"
+    }
+   ]
+  },
+  {
+   "title": "Stones & Medallions",
+   "color": "var(--fire)",
+   "items": [
+    {
+     "key": "Item_Stone_Forest",
+     "stages": [
+      {
+       "actor": "Item_Stone_Forest",
+       "flag": 285967340,
+       "name": "Kokiri Emerald",
+       "icon": false
+      }
+     ],
+     "tint": "#49c27a",
+     "drawn": "gem"
+    },
+    {
+     "key": "Item_Stone_Fire",
+     "stages": [
+      {
+       "actor": "Item_Stone_Fire",
+       "flag": 2299057837,
+       "name": "Goron Ruby",
+       "icon": false
+      }
+     ],
+     "tint": "#ef6247",
+     "drawn": "gem"
+    },
+    {
+     "key": "Item_Stone_Water",
+     "stages": [
+      {
+       "actor": "Item_Stone_Water",
+       "flag": 4005790709,
+       "name": "Zora Sapphire",
+       "icon": false
+      }
+     ],
+     "tint": "#4f9cf0",
+     "drawn": "gem"
+    },
+    {
+     "key": "Item_Medal_Forest",
+     "stages": [
+      {
+       "actor": "Item_Medal_Forest",
+       "flag": 4242069075,
+       "name": "Forest Medallion",
+       "icon": false
+      }
+     ],
+     "tint": "#49c27a",
+     "drawn": "medal"
+    },
+    {
+     "key": "Item_Medal_Fire",
+     "stages": [
+      {
+       "actor": "Item_Medal_Fire",
+       "flag": 272240071,
+       "name": "Fire Medallion",
+       "icon": false
+      }
+     ],
+     "tint": "#ef6247",
+     "drawn": "medal"
+    },
+    {
+     "key": "Item_Medal_Water",
+     "stages": [
+      {
+       "actor": "Item_Medal_Water",
+       "flag": 3479496576,
+       "name": "Water Medallion",
+       "icon": false
+      }
+     ],
+     "tint": "#4f9cf0",
+     "drawn": "medal"
+    },
+    {
+     "key": "Item_Medal_Spirit",
+     "stages": [
+      {
+       "actor": "Item_Medal_Spirit",
+       "flag": 3798589240,
+       "name": "Spirit Medallion",
+       "icon": false
+      }
+     ],
+     "tint": "#f0973a",
+     "drawn": "medal"
+    },
+    {
+     "key": "Item_Medal_Shadow",
+     "stages": [
+      {
+       "actor": "Item_Medal_Shadow",
+       "flag": 316029638,
+       "name": "Shadow Medallion",
+       "icon": false
+      }
+     ],
+     "tint": "#a874e6",
+     "drawn": "medal"
+    },
+    {
+     "key": "Item_Medal_Light",
+     "stages": [
+      {
+       "actor": "Item_Medal_Light",
+       "flag": 2418459015,
+       "name": "Light Medallion",
+       "icon": false
+      }
+     ],
+     "tint": "#f4d867",
+     "drawn": "medal"
+    }
+   ]
+  }
+ ],
+ "counters": [
+  {
+   "key": "tokens",
+   "label": "Gold Skulltula Tokens",
+   "flag": 74668408,
+   "total": 100
+  },
+  {
+   "key": "pieces",
+   "label": "Pieces of Heart",
+   "flag": 1374459827,
+   "total": null
+  },
+  {
+   "key": "hearts",
+   "label": "Heart containers",
+   "flag": 4225768865,
+   "total": null
+  }
+ ],
+ "string64": [
+  9273100,
+  108722472,
+  190253746,
+  214746829,
+  219768453,
+  228829095,
+  256800956,
+  305852932,
+  492931546,
+  591574553,
+  671673884,
+  907404153,
+  986840401,
+  1044557818,
+  1289979728,
+  1491084293,
+  1507444659,
+  1600586105,
+  1673226425,
+  1692754823,
+  1746221135,
+  1917141726,
+  1925453099,
+  1981868785,
+  2095172481,
+  2156306865,
+  2269937364,
+  2552504428,
+  2671152289,
+  2699580650,
+  2704323705,
+  2717380139,
+  2722286786,
+  2731883277,
+  2822103984,
+  2841261345,
+  2963258777,
+  2982563865,
+  3056156953,
+  3073168380,
+  3153741784,
+  3365675255,
+  3402891237,
+  3506939997,
+  3610434943,
+  3619063559,
+  3686395281,
+  3927086118,
+  3995582321,
+  3997577781,
+  4149087886,
+  4203305777,
+  4212225650,
+  4260399006
+ ],
+ "not_slots": [
+  1925453099,
+  4212225650
+ ]
+}

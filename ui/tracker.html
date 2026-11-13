@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OoT Rando Tracker</title>
+<style>
+:root {
+  --gold: #e8c56a; --gold-hi: #f7e1a0; --gold-lo: #a9852f; --text: #eef3ea; --muted: #a8b9a9; --faint: #6f8574;
+  --forest: #49c27a; --fire: #ef6247; --water: #4f9cf0; --shadow: #a874e6; --spirit: #f0973a; --light: #f4d867;
+  --serif: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  --sans: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --alpha: .9;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: transparent; overflow: hidden; }
+body { font: 12px/1.3 var(--sans); color: var(--text); -webkit-font-smoothing: antialiased; user-select: none; }
+.frame { position: absolute; inset: 0; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden;
+  background: linear-gradient(180deg, rgba(14, 36, 24, var(--alpha)), rgba(5, 15, 10, var(--alpha)));
+  border: 1px solid rgba(232, 197, 106, .45); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05); }
+.frame::before { content: ""; position: absolute; left: 18px; right: 18px; top: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+header { display: flex; align-items: center; gap: 10px; padding: 10px 12px 8px; cursor: move; }
+.emb { width: 26px; height: 26px; flex: none; }
+.emb .ring { transform-origin: 50px 50px; animation: spin 40s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+h1 { margin: 0; font: 400 16px var(--serif); letter-spacing: .05em; color: var(--gold-hi); }
+.src { color: var(--faint); font-size: 10.5px; margin-top: 1px; }
+.src b { color: var(--muted); font-weight: 600; }
+.live { width: 7px; height: 7px; border-radius: 50%; background: var(--forest); box-shadow: 0 0 8px var(--forest); margin-left: auto; flex: none; }
+.live.stale { background: var(--faint); box-shadow: none; }
+.hdrbtn { width: 24px; height: 24px; display: grid; place-items: center; border-radius: 7px; color: var(--muted); cursor: pointer; border: 0; background: none; }
+.hdrbtn:hover { background: rgba(232, 197, 106, .14); color: var(--gold-hi); }
+.hdrbtn svg { width: 15px; height: 15px; }
+main { flex: 1; overflow-y: auto; padding: 0 10px 10px; scrollbar-width: thin; scrollbar-color: rgba(232,197,106,.3) transparent; }
+.counters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
+.ctr { padding: 4px 8px; border-radius: 10px; background: rgba(0, 0, 0, .28); border: 1px solid rgba(255, 255, 255, .06); }
+.ctr .v { font: 400 17px var(--serif); color: var(--gold-hi); }
+.ctr .v small { font: 11px var(--sans); color: var(--faint); }
+.ctr .l { color: var(--muted); font-size: 10.5px; }
+.ctr.bump .v { animation: bump .6s; }
+@keyframes bump { 30% { transform: scale(1.25); color: #fff; } }
+section { margin-top: 6px; }
+section h2 { display: flex; align-items: baseline; gap: 6px; margin: 0 2px 5px; font: 600 10px var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--c); }
+section h2 span { margin-left: auto; letter-spacing: 0; color: var(--faint); font-weight: 600; }
+.grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; }
+.it { position: relative; aspect-ratio: 1; border-radius: 10px; display: grid; place-items: center;
+  background: rgba(0, 0, 0, .25); border: 1px solid rgba(255, 255, 255, .05);
+  transition: background .4s, border-color .4s, box-shadow .4s; }
+.it img, .it svg.d { width: 84%; height: 84%; object-fit: contain; filter: grayscale(1) brightness(.7); opacity: .45;
+  transition: filter .5s, opacity .5s, transform .3s; }
+.it.on { background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--t) 30%, transparent), rgba(0, 0, 0, .25) 70%);
+  border-color: color-mix(in srgb, var(--t) 60%, transparent); box-shadow: 0 0 12px -4px color-mix(in srgb, var(--t) 85%, transparent); }
+.it.on img, .it.on svg.d { filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .6)); opacity: 1; }
+.it:hover img, .it:hover svg.d { transform: scale(1.08); }
+.it .nm { display: none; font-size: 9.5px; line-height: 1.1; text-align: center; color: var(--muted); padding: 2px; }
+.it.noicon .nm { display: block; }
+.tip { position: fixed; z-index: 5; pointer-events: none; padding: 4px 8px; border-radius: 7px; background: rgba(8, 20, 14, .97);
+  border: 1px solid rgba(232, 197, 106, .5); color: var(--gold-hi); font-size: 11px; font-weight: 600; white-space: nowrap; opacity: 0; transition: opacity .15s; }
+.tip.show { opacity: 1; }
+.dots { position: absolute; right: 5px; top: 4px; display: flex; gap: 2px; }
+.dots i { width: 4px; height: 4px; border-radius: 50%; background: rgba(255, 255, 255, .15); }
+.dots i.f { background: var(--t); box-shadow: 0 0 4px var(--t); }
+.badge { position: absolute; right: 2px; bottom: 1px; z-index: 1; padding: 0 3px; border-radius: 5px; font: 700 9.5px var(--sans);
+  color: var(--muted); background: rgba(0, 0, 0, .55); }
+.it.on .badge { color: #1a1206; background: var(--t); }
+.it.new { animation: got 1.6s ease-out; }
+@keyframes got { 0% { transform: scale(.8); box-shadow: 0 0 0 0 var(--t); } 25% { transform: scale(1.12); box-shadow: 0 0 26px 6px var(--t); } 100% { transform: none; } }
+.msg { margin: 30px 16px; color: var(--muted); text-align: center; line-height: 1.5; }
+.toast { position: absolute; left: 50%; bottom: 12px; transform: translate(-50%, 10px); opacity: 0; transition: all .35s; pointer-events: none;
+  padding: 7px 12px; border-radius: 10px; background: rgba(10, 26, 17, .96); border: 1px solid var(--gold); color: var(--gold-hi); font-weight: 600; white-space: nowrap; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.settings { display: none; padding: 4px 12px 12px; border-top: 1px solid rgba(255, 255, 255, .06); }
+.settings.show { display: block; }
+.settings label { display: block; margin: 8px 0 3px; color: var(--muted); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; }
+.settings select, .settings input[type=range] { width: 100%; }
+select { background: rgba(0, 0, 0, .4); color: var(--text); border: 1px solid rgba(255, 255, 255, .12); border-radius: 8px; padding: 5px 6px; font: 12px var(--sans); }
+.hint { color: var(--faint); font-size: 10.5px; margin-top: 8px; line-height: 1.4; }
+@media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="frame">
+  <header class="pywebview-drag-region">
+    <svg class="emb" viewBox="0 0 100 100"><g class="ring"><circle cx="50" cy="50" r="40" fill="none" stroke="#e8c56a" stroke-width="5"/>
+      <circle cx="50" cy="10" r="7" fill="#49c27a"/><circle cx="85" cy="30" r="7" fill="#ef6247"/><circle cx="85" cy="70" r="7" fill="#4f9cf0"/>
+      <circle cx="50" cy="90" r="7" fill="#a874e6"/><circle cx="15" cy="70" r="7" fill="#f0973a"/><circle cx="15" cy="30" r="7" fill="#f4d867"/></g>
+      <polygon points="50,30 67,60 33,60" fill="none" stroke="#f7e1a0" stroke-width="5" stroke-linejoin="round"/></svg>
+    <div><h1>Tracker</h1><div class="src" id="src">Looking for your save…</div></div>
+    <span class="live stale" id="live" title="Lit while the save it reads is under 10 minutes old"></span>
+    <button class="hdrbtn" id="gear" title="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+    <button class="hdrbtn" id="hide" title="Hide (use your combo to bring it back)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </header>
+  <div class="settings" id="settings">
+    <label for="combo">Show / hide with controller</label><select id="combo"></select>
+    <label for="key">… or keyboard key</label><select id="key"></select>
+    <label for="alpha">Background opacity</label><input type="range" id="alpha" min="40" max="100" step="5">
+    <div class="hint">The tracker reads your latest save, so it updates every time the game saves (autosaves included). Showing it never takes focus away from the game.</div>
+  </div>
+  <main id="main"><div class="msg">Looking for your save…</div></main>
+  <div class="toast" id="toast"></div>
+  <div class="tip" id="tip"></div>
+</div>
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+let api, prev = null, cfg = null, ICONS = {};
+
+// Drawn icons for things the game has no icon file for.
+function drawn(kind, color) {
+  if (kind === 'note') return `<svg class="d" viewBox="0 0 48 48"><defs><radialGradient id="n${color.slice(1)}" cx=".35" cy=".3"><stop offset="0" stop-color="#fff"/><stop offset=".45" stop-color="${color}"/><stop offset="1" stop-color="${color}" stop-opacity=".75"/></radialGradient></defs>
+    <path d="M19 33V11l18-4v21" fill="none" stroke="${color}" stroke-width="3.2" stroke-linejoin="round"/>
+    <ellipse cx="14" cy="34" rx="6.5" ry="5" transform="rotate(-20 14 34)" fill="url(#n${color.slice(1)})"/>
+    <ellipse cx="32" cy="29" rx="6.5" ry="5" transform="rotate(-20 32 29)" fill="url(#n${color.slice(1)})"/></svg>`;
+  if (kind === 'gem') return `<svg class="d" viewBox="0 0 48 48"><path d="M24 4l14 12-14 28L10 16z" fill="${color}"/><path d="M24 4l14 12H10z" fill="#fff" fill-opacity=".35"/>
+    <path d="M24 4l-6 12 6 28 6-28z" fill="#fff" fill-opacity=".18"/><path d="M24 4l14 12-14 28L10 16z" fill="none" stroke="#f7e1a0" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+  return `<svg class="d" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#c9a13c"/><circle cx="24" cy="24" r="14.5" fill="${color}"/>
+    <circle cx="24" cy="24" r="14.5" fill="none" stroke="#fff6d2" stroke-opacity=".55" stroke-width="1"/><circle cx="19" cy="18" r="5" fill="#fff" fill-opacity=".35"/>
+    <circle cx="24" cy="24" r="18" fill="none" stroke="#f7e1a0" stroke-width="1.6"/></svg>`;
+}
+
+function face(i, g) {
+  const t = i.tint || g.color;
+  if (i.actor && ICONS[i.actor]) return `<img src="${ICONS[i.actor]}" alt="">`;
+  if (i.drawn) return drawn(i.drawn, i.tint || '#e8c56a');
+  return `<span class="nm">${esc(i.name)}</span>`;
+}
+
+function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(el._h); el._h = setTimeout(() => el.classList.remove('show'), 2600); }
+
+function render(s) {
+  const main = $('#main');
+  if (!s.ok) { main.innerHTML = `<div class="msg">${esc(s.error)}</div>`; $('#src').textContent = 'No save yet'; return; }
+  const age = (Date.now() / 1000) - s.mtime;
+  $('#src').innerHTML = `Save <b>${esc(s.saved)}</b> · ${esc(s.slot.replace('slot_', 'slot '))}`;
+  $('#live').classList.toggle('stale', age > 600);
+  const had = new Map(); const ctrs = new Map();
+  const prevCount = new Map();
+  if (prev && prev.ok) { prev.groups.forEach(g => g.items.forEach(i => { had.set(i.key, i.level); if (i.max) prevCount.set(i.key, i.count); })); prev.counters.forEach(c => ctrs.set(c.key, c.value)); }
+  const fresh = [];
+  let html = '<div class="counters">' + s.counters.map(c => {
+    const v = Number.isInteger(c.value) ? c.value : c.value.toFixed(2).replace(/\.?0+$/, '');
+    const bump = prev && ctrs.has(c.key) && ctrs.get(c.key) !== c.value;
+    return `<div class="ctr${bump ? ' bump' : ''}"><div class="v">${v}${c.total ? `<small> / ${c.total}</small>` : ''}</div><div class="l">${esc(c.label)}</div></div>`;
+  }).join('') + '</div>';
+  for (const g of s.groups) {
+    html += `<section style="--c:${g.color}"><h2>${esc(g.title)}<span>${g.found}/${g.total}</span></h2><div class="grid">`;
+    for (const i of g.items) {
+      const isNew = prev && had.has(i.key) && (i.level > had.get(i.key) || (i.max && i.count > (prevCount.get(i.key) || 0)));
+      if (isNew) fresh.push(i.name);
+      const dots = i.max ? `<span class="badge">${i.count}/${i.max}</span>`
+        : i.stages > 4 ? `<span class="badge">${i.level}/${i.stages}</span>`
+        : i.stages > 1 ? `<span class="dots">${Array.from({ length: i.stages }, (_, k) => `<i class="${k < i.level ? 'f' : ''}"></i>`).join('')}</span>` : '';
+      const noicon = !(i.actor && ICONS[i.actor]) && !i.drawn;
+      html += `<div class="it${i.level ? ' on' : ''}${isNew ? ' new' : ''}${noicon ? ' noicon' : ''}" style="--t:${i.tint || g.color}" data-name="${esc(i.name)}">${dots}${face(i, g)}</div>`;
+    }
+    html += '</div></section>';
+  }
+  main.innerHTML = html;
+  if (fresh.length) toast('Found: ' + fresh.join(', '));
+  prev = s;
+}
+
+async function tick() {
+  try { const s = await api.poll(); if (s) render(s); } catch (e) {}
+  setTimeout(tick, 1500);
+}
+
+async function boot(a) {
+  api = a;
+  const init = await api.init();
+  cfg = init.settings;
+  ICONS = init.icons || {};
+  const tip = $('#tip');
+  document.addEventListener('mouseover', e => { const it = e.target.closest('.it'); if (!it) { tip.classList.remove('show'); return; }
+    tip.textContent = it.dataset.name; tip.classList.add('show'); });
+  document.addEventListener('mousemove', e => { const r = tip.getBoundingClientRect();
+    tip.style.left = Math.min(innerWidth - r.width - 6, Math.max(6, e.clientX - r.width / 2)) + 'px'; tip.style.top = (e.clientY - 30) + 'px'; });
+  const combo = $('#combo'), key = $('#key'), alpha = $('#alpha');
+  combo.innerHTML = Object.entries(init.combos).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('');
+  key.innerHTML = '<option value="">None</option>' + init.keys.map(k => `<option>${k}</option>`).join('');
+  combo.value = cfg.combo; key.value = cfg.key || ''; alpha.value = Math.round((cfg.alpha || .9) * 100);
+  document.documentElement.style.setProperty('--alpha', alpha.value / 100);
+  combo.onchange = () => { api.set_option('combo', combo.value); toast('Combo: ' + init.combos[combo.value]); };
+  key.onchange = () => api.set_option('key', key.value);
+  alpha.oninput = () => { document.documentElement.style.setProperty('--alpha', alpha.value / 100); api.set_option('alpha', alpha.value / 100); };
+  $('#gear').onclick = () => $('#settings').classList.toggle('show');
+  $('#hide').onclick = () => api.hide();
+  render(init.state);
+  toast(init.combos[cfg.combo] + (cfg.key ? ' or ' + cfg.key : '') + ' shows / hides me');
+  setTimeout(tick, 1500);
+}
+
+function mock() {
+  const groups = [['Items', 'var(--gold)', ['Fairy Slingshot', 'Boomerang', 'Bomb Bag', 'Bombchu', 'Fairy Bow', 'Fire Arrow', 'Ice Arrow', 'Light Arrow', 'Longshot', 'Megaton Hammer', 'Lenses of Truth', 'Magic Beans', "Din's Fire", "Farore's Wind", "Nayru's Love", 'Ocarina of Time', 'Empty Bottle', 'Deku Stick', 'Deku Nut']],
+    ['Equipment', 'var(--water)', ['Kokiri Sword', 'Master Sword', "Giant's Knife", 'Deku Shield', 'Hylian Shield', 'Mirror Shield', 'Goron Tunic', 'Zora Tunic', 'Iron Boots', 'Hover Boots']],
+    ['Songs', 'var(--shadow)', ["Zelda's Lullaby", "Epona's Song", "Saria's Song", "Sun's Song", 'Song of Time', 'Song of Storms', 'Minuet of the Forest', 'Bolero of Fire', 'Serenade of Water', 'Requiem of Spirit', 'Nocturne of Shadow', 'Prelude of Light']]];
+  let n = 0;
+  const make = () => ({ ok: true, saved: new Date().toTimeString().slice(0, 8), slot: 'slot_05', mtime: Date.now() / 1000,
+    counters: [{ key: 'tokens', label: 'Gold Skulltula Tokens', value: n, total: 100 }, { key: 'pieces', label: 'Pieces of Heart', value: 1, total: null }, { key: 'hearts', label: 'Hearts', value: 3, total: null }],
+    groups: groups.map(([t, c, names]) => { const items = names.map((x, k) => ({ key: x, name: x, level: (k + n) % 3 === 0 ? 1 : 0, stages: x === 'Longshot' ? 2 : 1 })); return { title: t, color: c, items, found: items.filter(i => i.level).length, total: items.length }; }) });
+  return { init: async () => ({ state: make(), settings: { combo: 'ls_rs', key: 'F10', alpha: .9 }, combos: { ls_rs: 'Click both sticks (L3 + R3)', back_rs: 'View + right stick click' }, keys: ['F8', 'F9', 'F10', 'F11'] }),
+    poll: async () => { n++; return n % 3 ? null : make(); }, set_option: async () => true, hide: async () => true };
+}
+
+if (window.pywebview && window.pywebview.api) boot(window.pywebview.api);
+else { let started = false; addEventListener('pywebviewready', () => { if (!started) { started = true; boot(window.pywebview.api); } });
+  setTimeout(() => { if (!started && !window.pywebview) { started = true; boot(mock()); } }, 800); }
+</script>
+</body>
+</html>

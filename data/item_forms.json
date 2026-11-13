@@ -1,0 +1,307 @@
+{
+ "Armor_Adult_HeavyBoot": {
+  "get": null,
+  "world": null,
+  "scrub": "Armor_Adult_HeavyBoot"
+ },
+ "Item_Arrow_Ice": {
+  "get": "Item_Arrow_Ice",
+  "world": null,
+  "scrub": "Item_Arrow_Ice"
+ },
+ "Item_BombBag_Small": {
+  "get": "Item_BombBag_Small",
+  "world": null,
+  "scrub": "Item_BombBag_Small"
+ },
+ "Item_BombBundle_Small": {
+  "get": "Item_BombBundle_Small",
+  "world": null,
+  "scrub": "Item_BombBundle_Small"
+ },
+ "Item_BombchuBundle_Small": {
+  "get": "Item_BombchuBundle_Small",
+  "world": null,
+  "scrub": "Item_BombchuBundle_Small"
+ },
+ "Item_Boomerang": {
+  "get": "Item_Boomerang",
+  "world": null,
+  "scrub": "Item_Boomerang"
+ },
+ "Item_Bottle_GreenPotion": {
+  "get": "Item_Bottle_GreenPotion",
+  "world": null,
+  "scrub": "Item_Bottle_GreenPotion"
+ },
+ "Item_Bottle_RedPotion": {
+  "get": "Item_Bottle_RedPotion",
+  "world": null,
+  "scrub": "Item_Bottle_RedPotion"
+ },
+ "Item_DekuStickBundle_Small": {
+  "get": "Item_DekuStickBundle_Small",
+  "world": null,
+  "scrub": "Item_DekuStickBundle_Small"
+ },
+ "Item_DinFire": {
+  "get": "Item_DinFire",
+  "world": null,
+  "scrub": "Item_DinFire"
+ },
+ "Item_Dungeon_BossKey": {
+  "get": "Item_Dungeon_BossKey",
+  "world": null,
+  "scrub": "Item_Dungeon_BossKey"
+ },
+ "Item_Dungeon_Compass": {
+  "get": "Item_Dungeon_Compass",
+  "world": null,
+  "scrub": "Item_Dungeon_Compass"
+ },
+ "Item_Dungeon_Map": {
+  "get": "Item_Dungeon_Map",
+  "world": null,
+  "scrub": "Item_Dungeon_Map"
+ },
+ "Item_Dungeon_SmallKey": {
+  "get": "Item_Dungeon_SmallKey",
+  "world": "Obj_Dungeon_SmallKey",
+  "scrub": "Item_Dungeon_SmallKey"
+ },
+ "Item_Gauntlet_Gold": {
+  "get": "Item_Gauntlet_Gold",
+  "world": null,
+  "scrub": "Item_Gauntlet_Gold"
+ },
+ "Item_Gauntlet_Silver": {
+  "get": "Item_Gauntlet_Silver",
+  "world": null,
+  "scrub": "Item_Gauntlet_Silver"
+ },
+ "Item_GlassTruth": {
+  "get": "Item_GlassTruth",
+  "world": null,
+  "scrub": "Item_GlassTruth"
+ },
+ "Item_Hammer": {
+  "get": "Item_Hammer",
+  "world": null,
+  "scrub": "Item_Hammer"
+ },
+ "Item_HeavyBoot": {
+  "get": "Item_HeavyBoot",
+  "world": null,
+  "scrub": "Item_HeavyBoot"
+ },
+ "Item_Hookshot": {
+  "get": "Item_Hookshot",
+  "world": null,
+  "scrub": "Item_Hookshot"
+ },
+ "Item_HoverBoot": {
+  "get": "Item_HoverBoot",
+  "world": null,
+  "scrub": "Item_HoverBoot"
+ },
+ "Item_Longshot": {
+  "get": "Item_Longshot",
+  "world": null,
+  "scrub": "Item_Longshot"
+ },
+ "Item_NayruLove": {
+  "get": "Item_NayruLove",
+  "world": null,
+  "scrub": "Item_NayruLove"
+ },
+ "Item_NutBag_Medium": {
+  "get": "Item_NutBag_Medium",
+  "world": null,
+  "scrub": "Item_NutBag_Medium"
+ },
+ "Item_Range_Bow": {
+  "get": "Item_Range_Bow",
+  "world": null,
+  "scrub": "Item_Range_Bow"
+ },
+ "Item_Range_SlingShot": {
+  "get": "Item_Range_SlingShot",
+  "world": null,
+  "scrub": "Item_Range_SlingShot"
+ },
+ "Item_ScrubBusinessSeed": {
+  "get": "Item_ScrubBusinessSeed",
+  "world": "Obj_ScrubBusinessSeed",
+  "scrub": "Item_ScrubBusinessSeed"
+ },
+ "Item_Shield_Mirror": {
+  "get": "Item_Shield_Mirror",
+  "world": null,
+  "scrub": "Item_Shield_Mirror"
+ },
+ "Item_StickBag_Medium": {
+  "get": "Item_StickBag_Medium",
+  "world": null,
+  "scrub": "Item_StickBag_Medium"
+ },
+ "Item_Sword_Kokiri": {
+  "get": "Item_Sword_Kokiri",
+  "world": null,
+  "scrub": "Item_Sword_Kokiri"
+ },
+ "Obj_ArrowBundle_Small": {
+  "get": "TBox_ArrowBundle_Small",
+  "world": "Obj_ArrowBundle_Small",
+  "scrub": "TBox_ArrowBundle_Small"
+ },
+ "Obj_Bomb": {
+  "get": "Item_Bomb",
+  "world": "Obj_Bomb",
+  "scrub": "Item_Bomb"
+ },
+ "Obj_DekuSeed": {
+  "get": "Item_DekuSeed",
+  "world": "Obj_DekuSeed",
+  "scrub": "Item_DekuSeed"
+ },
+ "Obj_DekuStick": {
+  "get": "Item_DekuStick",
+  "world": "Obj_DekuStick",
+  "scrub": "Item_DekuStick"
+ },
+ "Obj_Heart": {
+  "get": "Obj_Heart",
+  "world": "Obj_Heart",
+  "scrub": "Obj_Heart"
+ },
+ "Obj_Heart_Container": {
+  "get": "Obj_Heart_Container",
+  "world": "Obj_Heart_Container",
+  "scrub": "Obj_Heart_Container"
+ },
+ "Obj_Heart_Piece": {
+  "get": "Obj_Heart_Piece",
+  "world": "Obj_Heart_Piece",
+  "scrub": "Obj_Heart_Piece"
+ },
+ "Obj_MagicJar_Small": {
+  "get": "Obj_MagicJar_Small",
+  "world": "Obj_MagicJar_Small",
+  "scrub": "Obj_MagicJar_Small"
+ },
+ "Obj_MiniGame_SmallKey": {
+  "get": "Obj_MiniGame_SmallKey",
+  "world": "Obj_MiniGame_SmallKey",
+  "scrub": "Obj_MiniGame_SmallKey"
+ },
+ "Obj_Rupee_Blue": {
+  "get": "TBox_Rupee_Blue",
+  "world": "Obj_Rupee_Blue",
+  "scrub": "TBox_Rupee_Blue"
+ },
+ "Obj_Rupee_Green": {
+  "get": "TBox_Rupee_Green",
+  "world": "Obj_Rupee_Green",
+  "scrub": "TBox_Rupee_Green"
+ },
+ "Obj_Rupee_Purple": {
+  "get": "TBox_Rupee_Purple",
+  "world": "Obj_Rupee_Purple",
+  "scrub": "TBox_Rupee_Purple"
+ },
+ "Obj_Rupee_Red": {
+  "get": "TBox_Rupee_Red",
+  "world": "Obj_Rupee_Red",
+  "scrub": "TBox_Rupee_Red"
+ },
+ "Obj_Token_Gold": {
+  "get": "Item_Token_Gold",
+  "world": "Obj_Token_Gold",
+  "scrub": "Item_Token_Gold"
+ },
+ "Shop_ArrowBundle_01": {
+  "get": null,
+  "world": null,
+  "scrub": "Shop_ArrowBundle_01"
+ },
+ "Shop_BombBundle_01": {
+  "get": null,
+  "world": null,
+  "scrub": "Shop_BombBundle_01"
+ },
+ "Shop_DekuNutBundle_01": {
+  "get": null,
+  "world": null,
+  "scrub": "Shop_DekuNutBundle_01"
+ },
+ "Shop_DekuSeedBundle_02": {
+  "get": null,
+  "world": null,
+  "scrub": "Shop_DekuSeedBundle_02"
+ },
+ "TBox_ArrowBundle_Large": {
+  "get": "TBox_ArrowBundle_Large",
+  "world": "Obj_ArrowBundle_Large",
+  "scrub": "TBox_ArrowBundle_Large"
+ },
+ "TBox_ArrowBundle_Medium": {
+  "get": "TBox_ArrowBundle_Medium",
+  "world": "Obj_ArrowBundle_Medium",
+  "scrub": "TBox_ArrowBundle_Medium"
+ },
+ "TBox_DekuNutBundle": {
+  "get": "TBox_DekuNutBundle",
+  "world": null,
+  "scrub": "TBox_DekuNutBundle"
+ },
+ "TBox_Rupee_Blue": {
+  "get": "TBox_Rupee_Blue",
+  "world": "Obj_Rupee_Blue",
+  "scrub": "TBox_Rupee_Blue"
+ },
+ "TBox_Rupee_Gold": {
+  "get": "TBox_Rupee_Gold",
+  "world": "Obj_Rupee_Gold",
+  "scrub": "TBox_Rupee_Gold"
+ },
+ "TBox_Rupee_Green": {
+  "get": "TBox_Rupee_Green",
+  "world": "Obj_Rupee_Green",
+  "scrub": "TBox_Rupee_Green"
+ },
+ "TBox_Rupee_Purple": {
+  "get": "TBox_Rupee_Purple",
+  "world": "Obj_Rupee_Purple",
+  "scrub": "TBox_Rupee_Purple"
+ },
+ "TBox_Rupee_Red": {
+  "get": "TBox_Rupee_Red",
+  "world": "Obj_Rupee_Red",
+  "scrub": "TBox_Rupee_Red"
+ },
+ "TBox_Shield_Deku": {
+  "get": "TBox_Shield_Deku",
+  "world": "Obj_Shield_Deku",
+  "scrub": "TBox_Shield_Deku"
+ },
+ "TBox_Shield_Hylian": {
+  "get": "TBox_Shield_Hylian",
+  "world": "Obj_Shield_Hylian",
+  "scrub": "TBox_Shield_Hylian"
+ },
+ "Tbox_MagicJar_Large": {
+  "get": "Tbox_MagicJar_Large",
+  "world": "Obj_MagicJar_Large",
+  "scrub": "Tbox_MagicJar_Large"
+ },
+ "Weapon_Sword_Biggoron": {
+  "get": null,
+  "world": null,
+  "scrub": "Weapon_Sword_Biggoron"
+ },
+ "Weapon_Sword_Giant": {
+  "get": null,
+  "world": null,
+  "scrub": "Weapon_Sword_Giant"
+ }
+}

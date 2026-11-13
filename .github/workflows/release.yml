@@ -1,0 +1,81 @@
+name: Release
+
+# Builds OoTRando.exe and publishes a GitHub release when VERSION in randomize.py changes on
+# main (i.e. after a merged PR that bumps it). The app's updater downloads that release.
+# Only pushes to main run this, so code from an unmerged pull request never ships.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read version
+        id: v
+        shell: pwsh
+        run: |
+          $m = Select-String -Path randomize.py -Pattern "^VERSION = '([0-9]+\.[0-9]+\.[0-9]+)'"
+          if (-not $m) { throw 'VERSION not found in randomize.py' }
+          "version=$($m.Matches[0].Groups[1].Value)" >> $env:GITHUB_OUTPUT
+
+      - name: Already released?
+        id: exists
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "v${{ steps.v.outputs.version }}" --repo "${{ github.repository }}" *> $null
+          if ($LASTEXITCODE -eq 0) { "skip=true" >> $env:GITHUB_OUTPUT; "v${{ steps.v.outputs.version }} exists, nothing to do" }
+          else { "skip=false" >> $env:GITHUB_OUTPUT }
+          exit 0
+
+      - uses: actions/setup-python@v5
+        if: steps.exists.outputs.skip == 'false'
+        with:
+          python-version: '3.12'
+
+      - name: No game files in the repository
+        if: steps.exists.outputs.skip == 'false'
+        run: python tools/check_no_game_files.py
+
+      - name: Install
+        if: steps.exists.outputs.skip == 'false'
+        run: python -m pip install -r requirements.txt
+
+      - name: Test
+        if: steps.exists.outputs.skip == 'false'
+        run: python tests/test_seeds.py 60
+
+      - name: Build
+        if: steps.exists.outputs.skip == 'false'
+        run: python build_exe.py
+
+      - name: Checksum
+        if: steps.exists.outputs.skip == 'false'
+        shell: pwsh
+        run: |
+          $h = (Get-FileHash dist/OoTRando.exe -Algorithm SHA256).Hash.ToLower()
+          [IO.File]::WriteAllText("$PWD/dist/OoTRando.exe.sha256", "$h  OoTRando.exe")
+          "SHA-256: $h"
+
+      - name: Publish release
+        if: steps.exists.outputs.skip == 'false'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $v = "${{ steps.v.outputs.version }}"
+          gh release create "v$v" dist/OoTRando.exe dist/OoTRando.exe.sha256 `
+            --repo "${{ github.repository }}" --target "${{ github.sha }}" `
+            --title "OoT Remake Randomizer $v" --generate-notes

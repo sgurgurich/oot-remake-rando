@@ -1,0 +1,32 @@
+name: CI
+
+# Runs on every pull request and every push to main. Required to pass before a PR can merge.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: No game files in the repository
+        run: python tools/check_no_game_files.py
+
+      - name: Install
+        run: python -m pip install zstandard==0.25.0
+
+      - name: Everything compiles
+        run: python -m compileall -q randomize.py gui.py OoTRando.pyw build_exe.py randomizer tools tests
+
+      - name: Seeds are beatable under every preset
+        run: python tests/test_seeds.py 60

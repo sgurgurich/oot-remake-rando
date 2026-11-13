@@ -1,0 +1,1744 @@
+{
+ "slots": [
+  {
+   "id": "12353176944776347148",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 2,
+   "vanilla": "Shop_Bottle_Bug",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "15075156905719609791",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 3,
+   "vanilla": "Shop_Armor_Goron",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "4809021128171462363",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 7,
+   "vanilla": "Shop_BombBundle_04",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "2024544143198404990",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 4,
+   "vanilla": "Shop_BombBundle_01",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "1979255831149252819",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 1,
+   "vanilla": "Shop_Bottle_RedPotion",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "4051972258083132277",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 5,
+   "vanilla": "Shop_BombBundle_02",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "7766531338573556705",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 6,
+   "vanilla": "Shop_BombBundle_03",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "5465750003560413462",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 2,
+   "vanilla": "Shop_Bottle_Bug",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "9081723785715040392",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 3,
+   "vanilla": "Shop_Armor_Goron",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "2540830164358535343",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 7,
+   "vanilla": "Shop_BombBundle_04",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "9587346236695312499",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 4,
+   "vanilla": "Shop_BombBundle_01",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "16994919311159696078",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 1,
+   "vanilla": "Shop_Bottle_RedPotion",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "10981256749588857721",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 5,
+   "vanilla": "Shop_BombBundle_02",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "14612795868360326117",
+   "area": "GoronCity",
+   "shop": "Goron Shop",
+   "index": 6,
+   "vanilla": "Shop_BombBundle_03",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/GoronCity/GoronCity_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "13090519859098389042",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 3,
+   "vanilla": "Shop_Bottle_Fairy",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "12023735427638332018",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 7,
+   "vanilla": "Shop_Bottle_Fish",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "14573579641810810967",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 2,
+   "vanilla": "Shop_Bottle_HalfMilk",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "8914926333771357265",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 1,
+   "vanilla": "Shop_Bottle_GreenPotion",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "9419965511399476345",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 4,
+   "vanilla": "Shop_Bottle_BlueFire",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "3063235766944682979",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 6,
+   "vanilla": "Shop_Bottle_Bug",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "11639399395084703081",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 5,
+   "vanilla": "Shop_Bottle_Poe",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "6472964510849521373",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 2,
+   "vanilla": "Shop_DekuSeedBundle_02",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "17252547494024141430",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 4,
+   "vanilla": "Shop_BombBundle_01",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "16693599174313571081",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 5,
+   "vanilla": "Shop_DekuNutBundle_01",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "9329787277345810673",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 3,
+   "vanilla": "Shop_ArrowBundle_01",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "11066753475037239452",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 6,
+   "vanilla": "Shop_Weapon_Shield_Hylian",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "7242922901245289051",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 1,
+   "vanilla": "Shop_MagicJar_Small",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "15323969315798721959",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 7,
+   "vanilla": "Shop_DekuStick",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "2505209540695098876",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 3,
+   "vanilla": "Shop_Bottle_Fairy",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "14581044945263333943",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 7,
+   "vanilla": "Shop_Bottle_Fish",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "2176150328003949778",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 2,
+   "vanilla": "Shop_Bottle_HalfMilk",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "8409930160770260951",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 1,
+   "vanilla": "Shop_Bottle_GreenPotion",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "15457642551600550074",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 4,
+   "vanilla": "Shop_Bottle_BlueFire",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "4010587438556269486",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 6,
+   "vanilla": "Shop_Bottle_Bug",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "10498999850469822755",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 5,
+   "vanilla": "Shop_Bottle_Poe",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "12203225833235031646",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 2,
+   "vanilla": "Shop_DekuSeedBundle_02",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "17512265184304585271",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 4,
+   "vanilla": "Shop_BombBundle_01",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "16973917980311026582",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 5,
+   "vanilla": "Shop_DekuNutBundle_01",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "12821849920581332402",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 3,
+   "vanilla": "Shop_ArrowBundle_01",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "6438218320520635418",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 6,
+   "vanilla": "Shop_Weapon_Shield_Hylian",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "9196056434848129628",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 1,
+   "vanilla": "Shop_MagicJar_Small",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "17114479252530837728",
+   "area": "KakarikoVillage",
+   "shop": "Kakariko Village",
+   "index": 7,
+   "vanilla": "Shop_DekuStick",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KakarikoVillage/KakarikoVillage_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "10608793909085719174",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 1,
+   "vanilla": "Shop_DekuSeedBundle_02",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "13457020963026830815",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 4,
+   "vanilla": "Shop_DekuSeedBundle_01",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "4359156404841200094",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 5,
+   "vanilla": "Shop_DekuStickBundle_Medium",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "5205605618390578983",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 3,
+   "vanilla": "Shop_DekuNutBundle_02",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "6642704364901961822",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 6,
+   "vanilla": "Shop_Weapon_Shield_Deku",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "15352451833778770402",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 7,
+   "vanilla": "Shop_DekuStick",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "8442446062876759020",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 2,
+   "vanilla": "Shop_DekuNutBundle_01",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "12274555791381804315",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 1,
+   "vanilla": "Shop_DekuSeedBundle_02",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "4804777660082210636",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 4,
+   "vanilla": "Shop_DekuSeedBundle_01",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "1748192465494650957",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 5,
+   "vanilla": "Shop_DekuStickBundle_Medium",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "12416733255464110660",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 3,
+   "vanilla": "Shop_DekuNutBundle_02",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "8161552603046357963",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 6,
+   "vanilla": "Shop_Weapon_Shield_Deku",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "13192127861177212694",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 7,
+   "vanilla": "Shop_DekuStick",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "1212183037605930043",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 2,
+   "vanilla": "Shop_DekuNutBundle_01",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "6236883368863181555",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 6,
+   "vanilla": "Shop_Weapon_Shield_Deku",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "15469014478079481125",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 2,
+   "vanilla": "Shop_DekuNutBundle_01",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "15329846556357339265",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 5,
+   "vanilla": "Shop_DekuStickBundle_Medium",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "8357016262118670446",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 4,
+   "vanilla": "Shop_DekuSeedBundle_01",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "12981796475041639447",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 3,
+   "vanilla": "Shop_DekuNutBundle_02",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "15086736134255051687",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 7,
+   "vanilla": "Shop_DekuStick",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "726499075643244587",
+   "area": "KokiriForest",
+   "shop": "Kokiri Shop",
+   "index": 1,
+   "vanilla": "Shop_DekuSeedBundle_02",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/KokiriForest/KokiriForest_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "13242971960259401995",
+   "area": "Market",
+   "shop": "Market",
+   "index": 1,
+   "vanilla": "Shop_BombchuBundle_04",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "17558451189872819062",
+   "area": "Market",
+   "shop": "Market",
+   "index": 3,
+   "vanilla": "Shop_BombchuBundle_06",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "12535663762055135836",
+   "area": "Market",
+   "shop": "Market",
+   "index": 2,
+   "vanilla": "Shop_BombchuBundle_05",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "10043319116785133483",
+   "area": "Market",
+   "shop": "Market",
+   "index": 4,
+   "vanilla": "Shop_BombchuBundle_01",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "12426385834471778854",
+   "area": "Market",
+   "shop": "Market",
+   "index": 7,
+   "vanilla": "Shop_BombchuBundle_08",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "7981518132387036590",
+   "area": "Market",
+   "shop": "Market",
+   "index": 5,
+   "vanilla": "Shop_BombchuBundle_07",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "15351736782374583877",
+   "area": "Market",
+   "shop": "Market",
+   "index": 6,
+   "vanilla": "Shop_BombchuBundle_02",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "13037119094293428679",
+   "area": "Market",
+   "shop": "Market",
+   "index": 2,
+   "vanilla": "Shop_DekuSeedBundle_02",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "14164799327792384879",
+   "area": "Market",
+   "shop": "Market",
+   "index": 4,
+   "vanilla": "Shop_BombBundle_01",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "18157355906313333023",
+   "area": "Market",
+   "shop": "Market",
+   "index": 5,
+   "vanilla": "Shop_DekuNutBundle_01",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "2470662836017610480",
+   "area": "Market",
+   "shop": "Market",
+   "index": 3,
+   "vanilla": "Shop_ArrowBundle_01",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "7804057436886816165",
+   "area": "Market",
+   "shop": "Market",
+   "index": 6,
+   "vanilla": "Shop_Weapon_Shield_Hylian",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "5101608369586255705",
+   "area": "Market",
+   "shop": "Market",
+   "index": 1,
+   "vanilla": "Shop_MagicJar_Small",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "18084221514669050690",
+   "area": "Market",
+   "shop": "Market",
+   "index": 7,
+   "vanilla": "Shop_DekuStick",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "10828340057543190252",
+   "area": "Market",
+   "shop": "Market",
+   "index": 2,
+   "vanilla": "Shop_Mask_Bunny",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "3777780974748551665",
+   "area": "Market",
+   "shop": "Market",
+   "index": 3,
+   "vanilla": "Shop_Mask_Skull",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "3656390147213677788",
+   "area": "Market",
+   "shop": "Market",
+   "index": 5,
+   "vanilla": "Shop_Mask_Goron",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "10663283941529417575",
+   "area": "Market",
+   "shop": "Market",
+   "index": 1,
+   "vanilla": "Shop_Mask_Keaton",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "13546492277428144846",
+   "area": "Market",
+   "shop": "Market",
+   "index": 6,
+   "vanilla": "Shop_Mask_Gerudo",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "13988066728703442945",
+   "area": "Market",
+   "shop": "Market",
+   "index": 4,
+   "vanilla": "Shop_Mask_Zora",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "12366349165653624138",
+   "area": "Market",
+   "shop": "Market",
+   "index": 7,
+   "vanilla": "Shop_Mask_Truth",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "11528490284966062201",
+   "area": "Market",
+   "shop": "Market",
+   "index": 3,
+   "vanilla": "Shop_Bottle_Fairy",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "6796029720660653103",
+   "area": "Market",
+   "shop": "Market",
+   "index": 7,
+   "vanilla": "Shop_Bottle_Fish",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "16594423016797951568",
+   "area": "Market",
+   "shop": "Market",
+   "index": 2,
+   "vanilla": "Shop_Bottle_HalfMilk",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "5615457568081558860",
+   "area": "Market",
+   "shop": "Market",
+   "index": 1,
+   "vanilla": "Shop_Bottle_GreenPotion",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "6011696378209808077",
+   "area": "Market",
+   "shop": "Market",
+   "index": 4,
+   "vanilla": "Shop_Bottle_BlueFire",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "8862936792925648296",
+   "area": "Market",
+   "shop": "Market",
+   "index": 6,
+   "vanilla": "Shop_Bottle_Bug",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "1403700953474659107",
+   "area": "Market",
+   "shop": "Market",
+   "index": 5,
+   "vanilla": "Shop_Bottle_Poe",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/Market/Market_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "1680449320526355316",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 1,
+   "vanilla": "Shop_Bottle_GreenPotion",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "2083764746597287990",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 5,
+   "vanilla": "Shop_ArrowBundle_02",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "9234916602077591207",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 2,
+   "vanilla": "Shop_Bottle_Bug",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "407172431436964979",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 7,
+   "vanilla": "Shop_ArrowBundle_03",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "11864004513775532252",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 3,
+   "vanilla": "Shop_Armor_Zora",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "1464168721230727012",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 6,
+   "vanilla": "Shop_Bottle_Fish",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "5711236115396681701",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 4,
+   "vanilla": "Shop_ArrowBundle_01",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Alternative_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "13414898983927272196",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 1,
+   "vanilla": "Shop_Bottle_GreenPotion",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "13542715117931052230",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 5,
+   "vanilla": "Shop_ArrowBundle_02",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "3320419477327427990",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 2,
+   "vanilla": "Shop_Bottle_Bug",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "17635977932423757890",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 7,
+   "vanilla": "Shop_ArrowBundle_03",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "13166851893817035932",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 3,
+   "vanilla": "Shop_Armor_Zora",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "8813115213665249107",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 6,
+   "vanilla": "Shop_Bottle_Fish",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "3052820561336725395",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 4,
+   "vanilla": "Shop_ArrowBundle_01",
+   "ages": [
+    "adult"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Adult_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "11476986716356933396",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 1,
+   "vanilla": "Shop_Bottle_GreenPotion",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "9694617930296799159",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 5,
+   "vanilla": "Shop_ArrowBundle_02",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "1608689548758434535",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 2,
+   "vanilla": "Shop_Bottle_Bug",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "10093301156052781138",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 7,
+   "vanilla": "Shop_ArrowBundle_03",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "1896019874810434988",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 3,
+   "vanilla": "Shop_Armor_Zora",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "6783598093601493412",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 6,
+   "vanilla": "Shop_Bottle_Fish",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Child_Static.bcett.byml.zs"
+   ]
+  },
+  {
+   "id": "7406968007557772004",
+   "area": "ZoraDomain",
+   "shop": "Zora Shop",
+   "index": 4,
+   "vanilla": "Shop_ArrowBundle_01",
+   "ages": [
+    "child"
+   ],
+   "files": [
+    "Banc/ZoraDomain/ZoraDomain_Child_Static.bcett.byml.zs"
+   ]
+  }
+ ],
+ "prices": {
+  "Shop_Armor_Goron": {
+   "pack": "Pack/Actor/Shop_Armor_Goron.pack.zs",
+   "file": "GameParameter/PriceParam/Obj_Armor_Goron.game__pouchcontent__PriceParam.bgyml",
+   "price": 600,
+   "keep": true
+  },
+  "Shop_Armor_Zora": {
+   "pack": "Pack/Actor/Shop_Armor_Zora.pack.zs",
+   "file": "GameParameter/PriceParam/Obj_Armor_Zora.game__pouchcontent__PriceParam.bgyml",
+   "price": 600,
+   "keep": true
+  },
+  "Shop_ArrowBundle_01": {
+   "pack": "Pack/Actor/Shop_ArrowBundle_01.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_ArrowBundle_01.game__pouchcontent__PriceParam.bgyml",
+   "price": 20,
+   "keep": false
+  },
+  "Shop_ArrowBundle_02": {
+   "pack": "Pack/Actor/Shop_ArrowBundle_02.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_ArrowBundle_02.game__pouchcontent__PriceParam.bgyml",
+   "price": 50,
+   "keep": false
+  },
+  "Shop_ArrowBundle_03": {
+   "pack": "Pack/Actor/Shop_ArrowBundle_03.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_ArrowBundle_03.game__pouchcontent__PriceParam.bgyml",
+   "price": 70,
+   "keep": false
+  },
+  "Shop_BombBundle_01": {
+   "pack": "Pack/Actor/Shop_BombBundle_01.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_BombBundle_01.game__pouchcontent__PriceParam.bgyml",
+   "price": 35,
+   "keep": false
+  },
+  "Shop_BombBundle_02": {
+   "pack": "Pack/Actor/Shop_BombBundle_02.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_BombBundle_02.game__pouchcontent__PriceParam.bgyml",
+   "price": 45,
+   "keep": false
+  },
+  "Shop_BombBundle_03": {
+   "pack": "Pack/Actor/Shop_BombBundle_03.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_BombBundle_03.game__pouchcontent__PriceParam.bgyml",
+   "price": 80,
+   "keep": false
+  },
+  "Shop_BombBundle_04": {
+   "pack": "Pack/Actor/Shop_BombBundle_04.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_BombBundle_04.game__pouchcontent__PriceParam.bgyml",
+   "price": 110,
+   "keep": false
+  },
+  "Shop_BombchuBundle_01": {
+   "pack": "Pack/Actor/Shop_BombchuBundle_01.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_BombchuBundle_01.game__pouchcontent__PriceParam.bgyml",
+   "price": 140,
+   "keep": false
+  },
+  "Shop_BombchuBundle_02": {
+   "pack": "Pack/Actor/Shop_BombchuBundle_02.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_BombchuBundle_02.game__pouchcontent__PriceParam.bgyml",
+   "price": 240,
+   "keep": false
+  },
+  "Shop_BombchuBundle_04": {
+   "pack": "Pack/Actor/Shop_BombchuBundle_04.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_BombchuBundle_04.game__pouchcontent__PriceParam.bgyml",
+   "price": 45,
+   "keep": false
+  },
+  "Shop_BombchuBundle_05": {
+   "pack": "Pack/Actor/Shop_BombchuBundle_05.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_BombchuBundle_05.game__pouchcontent__PriceParam.bgyml",
+   "price": 75,
+   "keep": false
+  },
+  "Shop_BombchuBundle_06": {
+   "pack": "Pack/Actor/Shop_BombchuBundle_06.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_BombchuBundle_06.game__pouchcontent__PriceParam.bgyml",
+   "price": 120,
+   "keep": false
+  },
+  "Shop_BombchuBundle_07": {
+   "pack": "Pack/Actor/Shop_BombchuBundle_07.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_BombchuBundle_07.game__pouchcontent__PriceParam.bgyml",
+   "price": 210,
+   "keep": false
+  },
+  "Shop_BombchuBundle_08": {
+   "pack": "Pack/Actor/Shop_BombchuBundle_08.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_BombchuBundle_08.game__pouchcontent__PriceParam.bgyml",
+   "price": 300,
+   "keep": false
+  },
+  "Shop_Bottle_BlueFire": {
+   "pack": "Pack/Actor/Shop_Bottle_BlueFire.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Bottle_BlueFire.game__pouchcontent__PriceParam.bgyml",
+   "price": 200,
+   "keep": false
+  },
+  "Shop_Bottle_Bug": {
+   "pack": "Pack/Actor/Shop_Bottle_Bug.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Bottle_Bug.game__pouchcontent__PriceParam.bgyml",
+   "price": 30,
+   "keep": false
+  },
+  "Shop_Bottle_Fairy": {
+   "pack": "Pack/Actor/Shop_Bottle_Fairy.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Bottle_Fairy.game__pouchcontent__PriceParam.bgyml",
+   "price": 50,
+   "keep": false
+  },
+  "Shop_Bottle_Fish": {
+   "pack": "Pack/Actor/Shop_Bottle_Fish.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Bottle_Fish.game__pouchcontent__PriceParam.bgyml",
+   "price": 50,
+   "keep": false
+  },
+  "Shop_Bottle_GreenPotion": {
+   "pack": "Pack/Actor/Shop_Bottle_GreenPotion.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Bottle_GreenPotion.game__pouchcontent__PriceParam.bgyml",
+   "price": 30,
+   "keep": false
+  },
+  "Shop_Bottle_HalfMilk": {
+   "pack": "Pack/Actor/Shop_Bottle_HalfMilk.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Bottle_HalfMilk.game__pouchcontent__PriceParam.bgyml",
+   "price": 20,
+   "keep": false
+  },
+  "Shop_Bottle_Poe": {
+   "pack": "Pack/Actor/Shop_Bottle_Poe.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Bottle_Poe.game__pouchcontent__PriceParam.bgyml",
+   "price": 200,
+   "keep": false
+  },
+  "Shop_Bottle_RedPotion": {
+   "pack": "Pack/Actor/Shop_Bottle_RedPotion.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Bottle_RedPotion.game__pouchcontent__PriceParam.bgyml",
+   "price": 30,
+   "keep": false
+  },
+  "Shop_DekuNutBundle_01": {
+   "pack": "Pack/Actor/Shop_DekuNutBundle_01.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_DekuNutBundle_01.game__pouchcontent__PriceParam.bgyml",
+   "price": 20,
+   "keep": false
+  },
+  "Shop_DekuNutBundle_02": {
+   "pack": "Pack/Actor/Shop_DekuNutBundle_02.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_DekuNutBundle_02.game__pouchcontent__PriceParam.bgyml",
+   "price": 30,
+   "keep": false
+  },
+  "Shop_DekuSeedBundle_01": {
+   "pack": "Pack/Actor/Shop_DekuSeedBundle_01.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_DekuSeedBundle_01.game__pouchcontent__PriceParam.bgyml",
+   "price": 30,
+   "keep": false
+  },
+  "Shop_DekuSeedBundle_02": {
+   "pack": "Pack/Actor/Shop_DekuSeedBundle_02.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_DekuSeedBundle_02.game__pouchcontent__PriceParam.bgyml",
+   "price": 15,
+   "keep": false
+  },
+  "Shop_DekuStick": {
+   "pack": "Pack/Actor/Shop_DekuStick.pack.zs",
+   "file": "GameParameter/PriceParam/Item_DekuStick.game__pouchcontent__PriceParam.bgyml",
+   "price": 10,
+   "keep": false
+  },
+  "Shop_DekuStickBundle_Medium": {
+   "pack": "Pack/Actor/Shop_DekuStickBundle_Medium.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_DekuStickBundle_Medium.game__pouchcontent__PriceParam.bgyml",
+   "price": 40,
+   "keep": false
+  },
+  "Shop_MagicJar_Small": {
+   "pack": "Pack/Actor/Shop_MagicJar_Small.pack.zs",
+   "file": "GameParameter/PriceParam/Obj_MagicJar_Small.game__pouchcontent__PriceParam.bgyml",
+   "price": 10,
+   "keep": false
+  },
+  "Shop_Mask_Bunny": {
+   "pack": "Pack/Actor/Shop_Mask_Bunny.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Mask_Bunny.game__pouchcontent__PriceParam.bgyml",
+   "price": 0,
+   "keep": true
+  },
+  "Shop_Mask_Gerudo": {
+   "pack": "Pack/Actor/Shop_Mask_Gerudo.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Mask_Gerudo.game__pouchcontent__PriceParam.bgyml",
+   "price": 0,
+   "keep": true
+  },
+  "Shop_Mask_Goron": {
+   "pack": "Pack/Actor/Shop_Mask_Goron.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Mask_Goron.game__pouchcontent__PriceParam.bgyml",
+   "price": 0,
+   "keep": true
+  },
+  "Shop_Mask_Keaton": {
+   "pack": "Pack/Actor/Shop_Mask_Keaton.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Mask_Keaton.game__pouchcontent__PriceParam.bgyml",
+   "price": 0,
+   "keep": true
+  },
+  "Shop_Mask_Skull": {
+   "pack": "Pack/Actor/Shop_Mask_Skull.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Mask_Skull.game__pouchcontent__PriceParam.bgyml",
+   "price": 0,
+   "keep": true
+  },
+  "Shop_Mask_Truth": {
+   "pack": "Pack/Actor/Shop_Mask_Truth.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Mask_Truth.game__pouchcontent__PriceParam.bgyml",
+   "price": 0,
+   "keep": true
+  },
+  "Shop_Mask_Zora": {
+   "pack": "Pack/Actor/Shop_Mask_Zora.pack.zs",
+   "file": "GameParameter/PriceParam/Item_Mask_Zora.game__pouchcontent__PriceParam.bgyml",
+   "price": 0,
+   "keep": true
+  },
+  "Shop_Weapon_Shield_Deku": {
+   "pack": "Pack/Actor/Shop_Weapon_Shield_Deku.pack.zs",
+   "file": "GameParameter/PriceParam/Shop_Weapon_Shield_Deku.game__pouchcontent__PriceParam.bgyml",
+   "price": 40,
+   "keep": true
+  },
+  "Shop_Weapon_Shield_Hylian": {
+   "pack": "Pack/Actor/Shop_Weapon_Shield_Hylian.pack.zs",
+   "file": "GameParameter/PriceParam/Weapon_Shield_Hylian.game__pouchcontent__PriceParam.bgyml",
+   "price": 80,
+   "keep": true
+  }
+ },
+ "names": {
+  "Shop_Armor_Goron": "Goron Tunic",
+  "Shop_Armor_Zora": "Zora Tunic",
+  "Shop_ArrowBundle_01": "10 Arrows",
+  "Shop_ArrowBundle_02": "30 Arrows",
+  "Shop_ArrowBundle_03": "50 Arrows",
+  "Shop_BombBundle_01": "Five Bombs",
+  "Shop_BombBundle_02": "10 Bombs",
+  "Shop_BombBundle_03": "20 Bombs",
+  "Shop_BombBundle_04": "30 Bombs",
+  "Shop_BombchuBundle_01": "10 Bombchus",
+  "Shop_BombchuBundle_02": "20 Bombchus",
+  "Shop_BombchuBundle_04": "Three Bombchus",
+  "Shop_BombchuBundle_05": "Five Bombchus",
+  "Shop_BombchuBundle_06": "Eight Bombchus",
+  "Shop_BombchuBundle_07": "15 Bombchus",
+  "Shop_BombchuBundle_08": "30 Bombchus",
+  "Shop_Bottle_BlueFire": "Blue Fire",
+  "Shop_Bottle_Bug": "Bug",
+  "Shop_Bottle_Fairy": "Fairy",
+  "Shop_Bottle_Fish": "Fish",
+  "Shop_Bottle_GreenPotion": "Green Potion",
+  "Shop_Bottle_HalfMilk": "Half-Full Lon Lon Milk",
+  "Shop_Bottle_Poe": "Poe",
+  "Shop_Bottle_RedPotion": "Red Potion",
+  "Shop_DekuNutBundle_01": "Five Deku Nuts",
+  "Shop_DekuNutBundle_02": "10 Deku Nuts",
+  "Shop_DekuSeedBundle_01": "30 Deku Seeds",
+  "Shop_DekuSeedBundle_02": "10 Deku Seeds",
+  "Shop_DekuStick": "Deku Stick",
+  "Shop_DekuStickBundle_Medium": "Five Deku Sticks",
+  "Shop_MagicJar_Small": "Magic Jar",
+  "Shop_Mask_Bunny": "Mask Bunny",
+  "Shop_Mask_Gerudo": "Mask Gerudo",
+  "Shop_Mask_Goron": "Goron Tunic",
+  "Shop_Mask_Keaton": "Mask Keaton",
+  "Shop_Mask_Skull": "Mask Skull",
+  "Shop_Mask_Truth": "Mask Truth",
+  "Shop_Mask_Zora": "Zora Tunic",
+  "Shop_Weapon_Shield_Deku": "Deku Shield",
+  "Shop_Weapon_Shield_Hylian": "Hylian Shield"
+ }
+}

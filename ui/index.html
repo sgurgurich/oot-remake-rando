@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OoT Randomizer</title>
+<style>
+:root {
+  --bg0: #050f0a; --bg1: #0a1f15; --bg2: #11301f;
+  --panel: rgba(9, 26, 17, .72); --panel-hi: rgba(16, 40, 27, .82);
+  --line: rgba(232, 197, 106, .20); --line-hi: rgba(232, 197, 106, .55);
+  --gold: #e8c56a; --gold-hi: #f7e1a0; --gold-lo: #a9852f;
+  --text: #eef3ea; --muted: #a8b9a9; --faint: #6f8574;
+  --ok: #7fd89a; --bad: #ff8a78;
+  --forest: #49c27a; --fire: #ef6247; --water: #4f9cf0; --shadow: #a874e6; --spirit: #f0973a; --light: #f4d867;
+  --serif: "Palatino Linotype", "Book Antiqua", Palatino, "Constantia", Georgia, serif;
+  --sans: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --r: 16px;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; color: var(--text); font: 14px/1.45 var(--sans); overflow-x: hidden;
+  background:
+    radial-gradient(1200px 700px at 12% -10%, rgba(73, 194, 122, .16), transparent 60%),
+    radial-gradient(900px 600px at 100% 0%, rgba(232, 197, 106, .10), transparent 60%),
+    radial-gradient(1000px 800px at 50% 120%, rgba(79, 156, 240, .10), transparent 60%),
+    linear-gradient(180deg, var(--bg1), var(--bg0) 70%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: rgba(232, 197, 106, .35); }
+#fx { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.rays { position: fixed; inset: -20% -10% auto -10%; height: 90vh; pointer-events: none; z-index: 0; opacity: .5;
+  background: repeating-linear-gradient(100deg, transparent 0 80px, rgba(247, 225, 160, .035) 80px 140px, transparent 140px 260px);
+  mask-image: linear-gradient(180deg, #000, transparent 80%); -webkit-mask-image: linear-gradient(180deg, #000, transparent 80%);
+  animation: sway 18s ease-in-out infinite alternate; }
+@keyframes sway { from { transform: translateX(-3%) skewX(-2deg); } to { transform: translateX(3%) skewX(2deg); } }
+
+.wrap { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; padding: 22px 28px 130px; }
+
+/* update banner */
+.update { display: none; align-items: center; gap: 12px; margin: 0 0 14px; padding: 10px 14px; border-radius: 14px;
+  background: linear-gradient(90deg, rgba(232, 197, 106, .16), rgba(232, 197, 106, .05)); border: 1px solid var(--line-hi); animation: rise .5s both; }
+.update.show { display: flex; }
+.update .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--gold); flex: none; animation: pulse 1.4s infinite; }
+.update .msg { flex: 1; color: var(--gold-hi); font-weight: 600; }
+.update .msg small { display: block; color: var(--muted); font-weight: 400; }
+.update .bar { width: 160px; height: 6px; border-radius: 999px; background: rgba(0, 0, 0, .4); overflow: hidden; display: none; }
+.update .bar span { display: block; height: 100%; width: 0; background: var(--gold); transition: width .3s; }
+.update.dl .bar { display: block; }
+.update #updGo { display: none; }
+.update.ready #updGo { display: inline-flex; }
+.update.ready .dot { background: var(--ok); box-shadow: 0 0 10px var(--ok); animation: none; }
+#updX { font-size: 20px; color: var(--muted); }
+
+/* header */
+header { display: flex; align-items: center; gap: 20px; margin: 4px 0 22px; }
+.emblem { width: 84px; height: 84px; flex: none; filter: drop-shadow(0 0 18px rgba(232, 197, 106, .35)); }
+.emblem .ring { transform-origin: 50px 50px; animation: spin 60s linear infinite; }
+.emblem .gem { animation: gem 4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes gem { 0%, 100% { opacity: .85; } 50% { opacity: 1; filter: brightness(1.35); } }
+.kicker { font: 600 11px/1 var(--sans); letter-spacing: .32em; text-transform: uppercase; color: var(--gold); opacity: .85; }
+h1 { margin: 8px 0 4px; font: 400 34px/1.05 var(--serif); letter-spacing: .04em;
+  background: linear-gradient(180deg, var(--gold-hi), var(--gold) 55%, var(--gold-lo));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  text-shadow: 0 2px 30px rgba(232, 197, 106, .15); }
+.sub { color: var(--muted); }
+.hdr-actions { margin-left: auto; align-self: flex-start; display: flex; align-items: center; gap: 10px; }
+.ver { font: 600 12px var(--sans); color: var(--gold); border: 1px solid var(--line);
+  padding: 5px 10px; border-radius: 999px; background: rgba(0, 0, 0, .2); }
+
+/* layout */
+.grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.col { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; min-width: 0; }
+@media (max-width: 1020px) { .grid { grid-template-columns: 1fr; } }
+
+.card { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r);
+  padding: 20px 22px 22px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, .6), inset 0 1px 0 rgba(255, 255, 255, .04);
+  opacity: 0; transform: translateY(14px); animation: rise .7s cubic-bezier(.2, .8, .2, 1) forwards; }
+.card::before { content: ""; position: absolute; left: 22px; right: 22px; top: -1px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: .7; }
+@keyframes rise { to { opacity: 1; transform: none; } }
+.card h2 { display: flex; align-items: center; gap: 12px; margin: 0 0 4px; font: 400 20px var(--serif); letter-spacing: .03em; color: var(--gold-hi); }
+.step { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; font: 600 13px var(--serif);
+  color: #1a1206; background: radial-gradient(circle at 35% 30%, var(--gold-hi), var(--gold) 55%, var(--gold-lo)); box-shadow: 0 0 14px rgba(232, 197, 106, .35); }
+.card .lead { margin: 0 0 16px 42px; color: var(--muted); }
+.card.shake { opacity: 1; transform: none; animation: shake .45s; }
+.status.warn { color: var(--gold-hi); border-color: rgba(232, 197, 106, .35); background: rgba(232, 197, 106, .08); }
+.status.warn .dot { background: var(--gold); box-shadow: 0 0 12px var(--gold); }
+@keyframes shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+
+/* dump */
+.file { display: flex; gap: 10px; }
+.path { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 12px;
+  background: rgba(0, 0, 0, .28); border: 1px solid rgba(255, 255, 255, .07); color: var(--text); font: 13px var(--sans); }
+.path span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: rtl; text-align: left; }
+.path.empty span { color: var(--faint); direction: ltr; }
+.status { display: flex; align-items: flex-start; gap: 10px; margin-top: 12px; padding: 10px 12px; border-radius: 12px;
+  background: rgba(0, 0, 0, .18); border: 1px solid transparent; color: var(--muted); transition: all .3s; }
+.status .dot { flex: none; width: 10px; height: 10px; margin-top: 5px; border-radius: 50%; background: var(--faint); }
+.status.ok { color: var(--ok); border-color: rgba(127, 216, 154, .25); background: rgba(73, 194, 122, .08); }
+.status.ok .dot { background: var(--ok); box-shadow: 0 0 12px var(--ok); }
+.status.bad { color: var(--bad); border-color: rgba(255, 138, 120, .25); background: rgba(239, 98, 71, .08); }
+.status.bad .dot { background: var(--bad); box-shadow: 0 0 12px var(--bad); }
+.status.busy .dot { background: var(--gold); animation: pulse 1s ease-in-out infinite; }
+@keyframes pulse { 50% { transform: scale(.55); opacity: .5; } }
+.hint { margin-top: 8px; color: var(--faint); font-size: 12.5px; }
+.hint b { color: var(--gold-hi); font-weight: 600; }
+code.tok { font: 12px Consolas, monospace; color: var(--gold-hi); background: rgba(0, 0, 0, .3); padding: 1px 5px; border-radius: 5px; }
+
+/* buttons */
+button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 12px; font-weight: 600;
+  color: var(--gold-hi); border: 1px solid var(--line-hi); background: linear-gradient(180deg, rgba(232, 197, 106, .14), rgba(232, 197, 106, .04));
+  transition: transform .15s, box-shadow .2s, background .2s; white-space: nowrap; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 6px 24px -8px rgba(232, 197, 106, .6); background: linear-gradient(180deg, rgba(232, 197, 106, .24), rgba(232, 197, 106, .08)); }
+.btn:active { transform: translateY(1px); }
+.btn svg { width: 16px; height: 16px; }
+.btn.ghost { color: var(--text); border-color: rgba(255, 255, 255, .14); background: rgba(255, 255, 255, .04); }
+
+/* category tiles */
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 12px; }
+.tile { position: relative; text-align: left; padding: 14px 14px 13px; border-radius: 14px; overflow: hidden;
+  background: rgba(0, 0, 0, .22); border: 1px solid rgba(255, 255, 255, .07);
+  transition: transform .25s cubic-bezier(.2, .8, .2, 1), border-color .25s, box-shadow .25s, background .25s; }
+.tile::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(240px 120px at 0% 0%, color-mix(in srgb, var(--c) 28%, transparent), transparent 70%); }
+.tile:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--c) 45%, transparent); }
+.tile.on { border-color: color-mix(in srgb, var(--c) 70%, transparent); background: color-mix(in srgb, var(--c) 9%, rgba(0, 0, 0, .25));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 25%, transparent), 0 10px 30px -12px color-mix(in srgb, var(--c) 70%, transparent); }
+.tile.on::after { opacity: 1; }
+.tile .top { display: flex; align-items: center; gap: 12px; padding-right: 26px; }
+.ico { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; color: var(--c);
+  background: color-mix(in srgb, var(--c) 12%, transparent); border: 1px solid color-mix(in srgb, var(--c) 35%, transparent); transition: all .3s; }
+.tile.on .ico { color: #0b140e; background: var(--c); box-shadow: 0 0 22px color-mix(in srgb, var(--c) 60%, transparent); }
+.ico svg { width: 24px; height: 24px; }
+.tile .name { font-weight: 650; font-size: 14.5px; line-height: 1.2; }
+.tile .count { color: var(--muted); font-size: 12.5px; }
+.tile .note { margin-top: 10px; color: var(--muted); font-size: 12.5px; line-height: 1.4; position: relative; z-index: 1; }
+.tile .tag { display: inline-block; margin-top: 9px; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600;
+  letter-spacing: .04em; color: var(--spirit); border: 1px solid rgba(240, 151, 58, .4); background: rgba(240, 151, 58, .08); position: relative; z-index: 1; }
+.check { position: absolute; top: 12px; right: 12px; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, .25);
+  display: grid; place-items: center; transition: all .25s; z-index: 1; }
+.check svg { width: 12px; height: 12px; stroke: #0b140e; stroke-width: 3; fill: none; stroke-dasharray: 20; stroke-dashoffset: 20; transition: stroke-dashoffset .35s .05s; }
+.tile.on .check { background: var(--c); border-color: var(--c); }
+.tile.on .check svg { stroke-dashoffset: 0; }
+.tile.locked { cursor: not-allowed; opacity: .62; filter: saturate(.5); }
+.tile.locked:hover { transform: none; border-color: rgba(255, 255, 255, .07); }
+.tile.locked .check { border-style: dashed; }
+.lockico { width: 12px; height: 12px; stroke: var(--muted); fill: none; stroke-width: 2.4; }
+
+/* segmented */
+.ditem { padding: 12px 0; border-top: 1px solid rgba(255, 255, 255, .06); }
+.ditem:first-of-type { border-top: 0; padding-top: 2px; }
+.ditem .row { display: grid; gap: 9px; }
+.ditem .lbl { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+.ditem .lbl svg { width: 20px; height: 20px; color: var(--gold); }
+.ditem .why { margin-top: 6px; color: var(--faint); font-size: 12.5px; min-height: 0; }
+.seg { position: relative; display: flex; padding: 3px; border-radius: 11px; background: rgba(0, 0, 0, .32); border: 1px solid rgba(255, 255, 255, .08); }
+.seg .knob { position: absolute; top: 3px; bottom: 3px; border-radius: 8px; transition: left .35s cubic-bezier(.3, 1.3, .5, 1);
+  left: calc(3px + var(--i, 0) * (100% - 6px) / var(--n, 1)); width: calc((100% - 6px) / var(--n, 1));
+  background: linear-gradient(180deg, var(--gold-hi), var(--gold)); box-shadow: 0 2px 14px rgba(232, 197, 106, .45); }
+.seg button { flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; position: relative; z-index: 1; padding: 7px 8px; border-radius: 8px; font-size: 12.5px; font-weight: 600; color: var(--muted); transition: color .25s; }
+.seg button.sel { color: #1a1206; }
+.seg button:disabled { cursor: not-allowed; color: var(--faint); opacity: .55; text-decoration: line-through; text-decoration-color: rgba(255, 255, 255, .25); }
+
+/* toggles */
+.opt { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-top: 1px solid rgba(255, 255, 255, .06); cursor: pointer; }
+.opt:first-of-type { border-top: 0; padding-top: 2px; }
+.opt .t { font-weight: 600; }
+.opt.locked { cursor: not-allowed; opacity: .6; }
+.opt.locked .sw { border-style: dashed; background: transparent; }
+.soon { margin-left: 6px; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; letter-spacing: .04em;
+  color: var(--shadow); border: 1px solid rgba(168, 116, 230, .45); background: rgba(168, 116, 230, .1); vertical-align: 1px; }
+.opt .d { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+.sw { flex: none; position: relative; width: 44px; height: 24px; margin-top: 1px; border-radius: 999px; background: rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255, 255, 255, .12); transition: background .3s, border-color .3s; }
+.sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #dfe7dc;
+  transition: transform .35s cubic-bezier(.3, 1.4, .5, 1), background .3s; box-shadow: 0 2px 6px rgba(0, 0, 0, .4); }
+.on > .sw, .sw.on { background: linear-gradient(180deg, var(--gold), var(--gold-lo)); border-color: var(--gold); }
+.on > .sw::after, .sw.on::after { transform: translateX(20px); background: #fffbe9; }
+
+/* forge bar */
+.forge { position: fixed; z-index: 5; left: 16px; right: 16px; bottom: 16px; max-width: 1184px; margin: 0 auto;
+  display: grid; grid-template-columns: minmax(140px, .8fr) minmax(200px, 1.3fr) auto auto; gap: 14px; align-items: end;
+  padding: 14px 16px; border-radius: 18px; background: rgba(6, 18, 12, .86); border: 1px solid var(--line-hi);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 24px 60px -18px rgba(0, 0, 0, .8), 0 0 0 1px rgba(0, 0, 0, .4);
+  animation: rise .8s .35s cubic-bezier(.2, .8, .2, 1) both; }
+@media (max-width: 1020px) { .forge { grid-template-columns: 1fr 1fr; } }
+.field label { display: block; font: 600 10.5px var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin: 0 0 6px 2px; opacity: .9; }
+.inp { display: flex; align-items: center; gap: 6px; padding: 4px 4px 4px 12px; border-radius: 12px; background: rgba(0, 0, 0, .35); border: 1px solid rgba(255, 255, 255, .1); transition: border-color .2s, box-shadow .2s; }
+.inp:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232, 197, 106, .15); }
+.inp input { flex: 1; min-width: 0; padding: 7px 0; border: 0; outline: 0; background: none; color: var(--text); font: 14px var(--sans); }
+.inp input::placeholder { color: var(--faint); }
+.inp .path2 { flex: 1; min-width: 0; padding: 7px 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; direction: rtl; text-align: left; color: var(--text); }
+.iconbtn { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; color: var(--gold); transition: background .2s, transform .2s; }
+.iconbtn:hover { background: rgba(232, 197, 106, .14); }
+.iconbtn svg { width: 19px; height: 19px; }
+.iconbtn.roll svg { animation: roll .6s cubic-bezier(.3, 1.3, .5, 1); }
+@keyframes roll { from { transform: rotate(-360deg) scale(.6); } }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; padding-bottom: 2px; }
+.chip { display: inline-flex; align-items: center; gap: 7px; padding: 9px 10px; border-radius: 11px; font-size: 13px; font-weight: 600; color: var(--muted);
+  border: 1px solid rgba(255, 255, 255, .1); background: rgba(255, 255, 255, .03); transition: all .2s; }
+.chip .sw { width: 30px; height: 17px; margin: 0; }
+.chip .sw::after { width: 11px; height: 11px; }
+.chip.on { color: var(--gold-hi); border-color: var(--line-hi); }
+.chip.on .sw::after { transform: translateX(13px); }
+.go { position: relative; overflow: hidden; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; min-width: 210px; padding: 12px 26px; border-radius: 14px;
+  color: #1c1305; background: linear-gradient(180deg, #fbe8ad, var(--gold) 45%, #c79b3c); border: 1px solid #fff2c4;
+  box-shadow: 0 10px 30px -8px rgba(232, 197, 106, .7), inset 0 1px 0 rgba(255, 255, 255, .7); transition: transform .15s, box-shadow .25s, filter .2s; }
+.go b { font: 400 19px/1.1 var(--serif); letter-spacing: .06em; }
+.go small { font-size: 11.5px; font-weight: 600; opacity: .72; margin-top: 2px; }
+.go::after { content: ""; position: absolute; top: 0; bottom: 0; width: 60px; left: -90px; transform: skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .75), transparent); animation: shine 3.6s ease-in-out infinite; }
+@keyframes shine { 0%, 55% { left: -90px; } 85%, 100% { left: 120%; } }
+.go:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -8px rgba(232, 197, 106, .85), inset 0 1px 0 rgba(255, 255, 255, .7); filter: brightness(1.05); }
+.go:active { transform: translateY(1px); }
+.go:disabled { filter: grayscale(.7) brightness(.7); cursor: not-allowed; transform: none; }
+
+/* run overlay */
+.veil { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 24px; background: rgba(2, 8, 5, .66);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; pointer-events: none; transition: opacity .35s; }
+.veil.show { opacity: 1; pointer-events: auto; }
+.panel { width: min(640px, 100%); max-height: calc(100vh - 48px); display: flex; flex-direction: column; border-radius: 20px; padding: 26px 26px 22px;
+  background: linear-gradient(180deg, rgba(18, 44, 30, .96), rgba(8, 22, 15, .97)); border: 1px solid var(--line-hi);
+  box-shadow: 0 40px 100px -20px #000, 0 0 60px -20px rgba(232, 197, 106, .35); transform: scale(.94) translateY(10px); transition: transform .45s cubic-bezier(.2, 1.2, .3, 1); }
+.veil.show .panel { transform: none; }
+.panel .head { display: flex; align-items: center; gap: 18px; }
+.panel h3 { margin: 0; font: 400 24px var(--serif); color: var(--gold-hi); letter-spacing: .03em; }
+.panel .p { color: var(--muted); margin-top: 3px; }
+.spinner { width: 66px; height: 66px; flex: none; }
+.spinner .ring { transform-origin: 50px 50px; animation: spin 2.4s linear infinite; }
+.spinner.done .ring { animation: none; }
+.prog { display: none; margin-top: 18px; }
+.prog.show { display: block; }
+.prog .bar { height: 10px; border-radius: 999px; overflow: hidden; background: rgba(0, 0, 0, .4); border: 1px solid rgba(255, 255, 255, .08); }
+.prog .bar span { display: block; height: 100%; width: 0; border-radius: 999px; transition: width .25s;
+  background: linear-gradient(90deg, var(--forest), var(--water), var(--shadow), var(--fire), var(--spirit), var(--light)); background-size: 300% 100%; animation: flow 3s linear infinite; }
+@keyframes flow { to { background-position: -300% 0; } }
+.prog .lbl { margin-top: 6px; color: var(--muted); font-size: 12.5px; }
+.log { margin: 18px 0 0; padding: 12px 14px; height: 210px; overflow: auto; border-radius: 12px; background: rgba(0, 0, 0, .35);
+  border: 1px solid rgba(255, 255, 255, .06); font: 12px/1.6 Consolas, "Cascadia Mono", monospace; color: #cfe0cf; white-space: pre-wrap; word-break: break-all; }
+.log div { animation: line .35s ease-out; }
+.log div.err { color: var(--bad); }
+@keyframes line { from { opacity: 0; transform: translateX(-6px); } }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; margin-top: 16px; }
+.result { display: none; margin-top: 16px; padding: 14px 16px; border-radius: 14px; border: 1px solid rgba(127, 216, 154, .3);
+  background: radial-gradient(400px 120px at 0 0, rgba(73, 194, 122, .18), transparent 70%), rgba(0, 0, 0, .2); }
+.result.show { display: block; animation: rise .5s forwards; opacity: 0; transform: translateY(8px); }
+.result .big { font: 400 18px var(--serif); color: var(--gold-hi); }
+.result code { font: 12.5px Consolas, monospace; color: var(--text); background: rgba(0, 0, 0, .3); padding: 2px 6px; border-radius: 6px; }
+.result ol { margin: 8px 0 0; padding-left: 20px; color: var(--muted); }
+.panel.bad .result { border-color: rgba(255, 138, 120, .3); background: rgba(239, 98, 71, .08); }
+
+.toast { position: fixed; z-index: 30; left: 50%; top: 18px; transform: translate(-50%, -20px); opacity: 0; transition: all .35s; padding: 10px 16px;
+  border-radius: 12px; background: rgba(40, 14, 10, .94); border: 1px solid rgba(255, 138, 120, .4); color: #ffd9d2; pointer-events: none; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<div class="rays"></div>
+
+<div class="wrap">
+  <div class="update" id="update"><span class="dot"></span><div class="msg" id="updMsg"></div>
+    <div class="bar" id="updBar"><span id="updFill"></span></div>
+    <button class="btn" id="updGo">Restart to update</button><button class="iconbtn" id="updX" title="Dismiss">&times;</button></div>
+  <header>
+    <svg class="emblem" viewBox="0 0 100 100" aria-hidden="true">
+      <defs>
+        <radialGradient id="gG" cx=".35" cy=".3"><stop offset="0" stop-color="#fff6d2"/><stop offset=".5" stop-color="#e8c56a"/><stop offset="1" stop-color="#8a6a22"/></radialGradient>
+      </defs>
+      <g class="ring">
+        <circle cx="50" cy="50" r="40" fill="none" stroke="url(#gG)" stroke-width="3"/>
+        <circle cx="50" cy="50" r="33" fill="none" stroke="#e8c56a" stroke-opacity=".35" stroke-width="1" stroke-dasharray="2 4"/>
+        <g id="gems"></g>
+      </g>
+      <polygon points="50,30 67,60 33,60" fill="none" stroke="url(#gG)" stroke-width="2.4" stroke-linejoin="round"/>
+      <circle cx="50" cy="50" r="5" fill="url(#gG)"/>
+    </svg>
+    <div>
+      <div class="kicker">Switch 2 remake &middot; romfs mod builder</div>
+      <h1>Ocarina of Time Randomizer</h1>
+      <div class="sub">Choose what to shuffle, press Forge, and load the patched .nup in your emulator.</div>
+    </div>
+    <div class="hdr-actions">
+      <button class="btn ghost" id="openTracker" title="An overlay that shows the items you've found. Toggle it in game with a controller combo.">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5l2.2 2.2L21 15"/></svg>Open tracker</button>
+      <div class="ver" id="ver">v&hellip;</div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="col">
+      <section class="card" id="dumpCard" style="animation-delay:.05s">
+        <h2><span class="step">I</span>Game dump</h2>
+        <p class="lead">Your Ocarina of Time <b>.nup</b> with the 2.0 update. It is only read, never changed.</p>
+        <div class="file">
+          <div class="path empty" id="nupPath"><span>No dump selected</span></div>
+          <button class="btn" id="nupBrowse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Browse</button>
+        </div>
+        <div class="status" id="nupStatus"><span class="dot"></span><span class="msg">Checking&hellip;</span></div>
+      </section>
+
+      <section class="card" style="animation-delay:.12s">
+        <h2><span class="step">II</span>Where items can hide</h2>
+        <p class="lead">Every location you switch on joins one shared pool. Equipment only lands in chests and scrubs: the game has no pick-up version of it.</p>
+        <div class="tiles" id="tiles"></div>
+      </section>
+    </div>
+
+    <div class="col">
+      <section class="card" style="animation-delay:.19s">
+        <h2><span class="step">III</span>Keys &amp; dungeon items</h2>
+        <p class="lead">These work only in the dungeon they belong to.</p>
+        <div id="ditems"></div>
+      </section>
+
+      <section class="card" style="animation-delay:.22s">
+        <h2><span class="step">IV</span>Logic &amp; world</h2>
+        <p class="lead">How strict placement is, and which story lockouts start open. Open options only affect a new save.</p>
+        <div class="ditem"><div class="row"><div class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l8 4v5c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Placement</div>
+          <div class="seg" id="logicSeg"><span class="knob"></span></div></div><div class="why" id="logicWhy"></div></div>
+        <div id="worldOpts"></div>
+      </section>
+
+      <section class="card" style="animation-delay:.26s">
+        <h2><span class="step">V</span>Safety</h2>
+        <p class="lead">Not yet tested on a real playthrough.</p>
+        <div class="opt" id="optKeep" data-key="keep_event_chests">
+          <span class="sw"></span>
+          <div><div class="t">Keep scripted chests vanilla</div>
+            <div class="d">Chests that play an item scene (Kokiri Sword, Fairy Bow, Megaton Hammer, Boss Keys, &hellip;) keep their item. Safer until those scenes are tested.</div></div>
+        </div>
+      </section>
+
+      <section class="card" style="animation-delay:.33s">
+        <h2><span class="step">VI</span>Cutscenes</h2>
+        <p class="lead">Changes to the game's own scenes. Not yet tested on a real playthrough.</p>
+        <div id="cutOpts"></div>
+        <div class="opt locked" id="autoSkip">
+          <span class="sw"></span>
+          <div><div class="t">Skip all cutscenes automatically <span class="soon">Not possible yet</span></div>
+            <div class="d" id="autoSkipNote"></div></div>
+        </div>
+      </section>
+
+      <section class="card" style="animation-delay:.36s">
+        <h2><span class="step">VII</span>Shops</h2>
+        <p class="lead">What shops sell, and for how much. Not yet tested on a real playthrough.</p>
+        <div class="opt" id="optShopItems"><span class="sw"></span><div><div class="t" id="shopItemsLabel"></div><div class="d" id="shopItemsNote"></div></div></div>
+        <div class="ditem"><div class="row"><div class="lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 7v10M9.5 9.5c0-1 1-1.8 2.5-1.8s2.5.8 2.5 1.8-1 1.6-2.5 1.9-2.5.9-2.5 2 1 1.8 2.5 1.8 2.5-.8 2.5-1.8"/></svg>Prices</div>
+          <div class="seg" id="priceSeg"><span class="knob"></span></div></div><div class="why" id="priceWhy"></div></div>
+      </section>
+
+      <section class="card" style="animation-delay:.4s">
+        <h2><span class="step">VIII</span>Name in your emulator</h2>
+        <p class="lead">What the patched .nup is called in your game list. <code class="tok">{date}</code> and <code class="tok">{seed}</code> are filled in.</p>
+        <div class="inp"><input id="nupTitle" spellcheck="false" autocomplete="off" maxlength="120" placeholder="Leave empty to keep the original name"></div>
+        <div class="hint" id="titlePreview"></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="forge">
+  <div class="field">
+    <label for="seed">Seed</label>
+    <div class="inp"><input id="seed" placeholder="Random" spellcheck="false" autocomplete="off">
+      <button class="iconbtn" id="dice" title="Roll a random seed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/><circle cx="16" cy="16" r="1.3" fill="currentColor"/><circle cx="16" cy="8" r="1.3" fill="currentColor"/><circle cx="8" cy="16" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/></svg></button></div>
+  </div>
+  <div class="field">
+    <label>Output folder</label>
+    <div class="inp"><span class="path2" id="outPath"></span>
+      <button class="iconbtn" id="outBrowse" title="Choose folder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></button></div>
+  </div>
+  <div class="field">
+    <label>Make</label>
+    <div class="chips">
+      <button class="chip" id="chipNup" title="A copy of your dump with the changes applied. Load it in your emulator instead of the original. About 26 GB."><span class="sw"></span>.nup</button>
+      <button class="chip" id="chipFolder" title="A romfs mod folder, for emulators that load mods"><span class="sw"></span>Mod folder</button>
+      <button class="chip" id="chipZip" title="The mod folder as a .zip"><span class="sw"></span>.zip</button>
+      <button class="chip" id="chipSpoiler" title="A text file listing where every item is"><span class="sw"></span>Spoiler</button>
+    </div>
+  </div>
+  <button class="go" id="go"><b>Forge seed</b><small id="summary">&hellip;</small></button>
+</div>
+
+<div class="veil" id="veil">
+  <div class="panel" id="panel">
+    <div class="head">
+      <svg class="spinner" id="spin" viewBox="0 0 100 100" aria-hidden="true">
+        <g class="ring"><circle cx="50" cy="50" r="40" fill="none" stroke="#e8c56a" stroke-opacity=".25" stroke-width="3"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#f7e1a0" stroke-width="3" stroke-dasharray="60 192" stroke-linecap="round"/><g id="gems2"></g></g>
+        <polygon points="50,32 66,60 34,60" fill="none" stroke="#e8c56a" stroke-width="2.4" stroke-linejoin="round"/>
+      </svg>
+      <div><h3 id="runTitle">Forging seed&hellip;</h3><div class="p" id="runSub"></div></div>
+    </div>
+    <div class="prog" id="prog"><div class="bar"><span id="progBar"></span></div><div class="lbl" id="progLbl"></div></div>
+    <div class="log" id="log"></div>
+    <div class="result" id="result"></div>
+    <div class="actions" id="actions"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const ICONS = {
+  chest: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 10a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v9H3z"/><path d="M3 11h18"/><rect x="10" y="9" width="4" height="5" rx="1" fill="currentColor" stroke="none"/></svg>',
+  scrub: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 21v-6"/><path d="M12 15c-5 0-8-3-8-8 4 0 7 1.5 8 5 1-3.5 4-5 8-5 0 5-3 8-8 8z"/><circle cx="9.5" cy="9.6" r=".9" fill="currentColor"/><circle cx="14.5" cy="9.6" r=".9" fill="currentColor"/></svg>',
+  skulltula: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="11" r="4.5"/><path d="M7.8 9.5 3 7M7.6 12 3 13M8.4 14.3 5 18M16.2 9.5 21 7M16.4 12 21 13M15.6 14.3 19 18"/><circle cx="10.4" cy="10.5" r="1" fill="currentColor"/><circle cx="13.6" cy="10.5" r="1" fill="currentColor"/></svg>',
+  pot: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M8 3h8M9 3v3c-3 1.5-5 4-5 7.5C4 18 7.5 21 12 21s8-3 8-7.5C20 10 18 7.5 15 6V3"/><path d="M6 12h12" stroke-dasharray="2 2"/></svg>',
+  freestanding: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.3a4.3 4.3 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z"/><path d="M12 7.3V20M4.6 11h14.8"/></svg>',
+  song: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 17V5l10-2v12"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="15.5" r="2.5"/></svg>',
+  small_keys: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8" cy="8" r="4"/><path d="M11 11l9 9M16 16l2-2M18.5 18.5l2-2"/></svg>',
+  boss_keys: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3l3 3-3 3-3-3z"/><circle cx="8" cy="6" r="5"/><path d="M8 11v10M8 15h4M8 19h3"/></svg>',
+  maps_compasses: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg>',
+  lock: '<svg class="lockico" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+  tick: '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+};
+const COLORS = { chest: 'var(--light)', scrub: 'var(--forest)', skulltula: 'var(--spirit)', pot: 'var(--water)', freestanding: 'var(--fire)', song: 'var(--shadow)' };
+const MEDALLIONS = ['#49c27a', '#ef6247', '#4f9cf0', '#a874e6', '#f0973a', '#f4d867'];
+
+const $ = s => document.querySelector(s);
+let S = null;            // app state from Python
+let dumpState = 'empty';
+let api = null;
+
+/* ---------- emblem gems ---------- */
+function gems(el, r, size) {
+  el.innerHTML = MEDALLIONS.map((c, i) => {
+    const a = (i / 6) * Math.PI * 2 - Math.PI / 2, x = 50 + Math.cos(a) * r, y = 50 + Math.sin(a) * r;
+    return `<circle class="gem" style="animation-delay:${i * .66}s" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${size}" fill="${c}" stroke="#fff6d2" stroke-opacity=".7" stroke-width=".8"/>`;
+  }).join('');
+}
+gems($('#gems'), 40, 5.2); gems($('#gems2'), 40, 4.6);
+
+/* ---------- fairies & motes ---------- */
+const fx = (() => {
+  const cv = $('#fx'), ctx = cv.getContext('2d'); let W, H, dpr;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const motes = [], fairies = [], sparks = [];
+  const mouse = { x: innerWidth * .8, y: innerHeight * .3, seen: false };
+  function size() { dpr = devicePixelRatio || 1; W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr; cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px'; }
+  size(); addEventListener('resize', size);
+  addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.seen = true; });
+  for (let i = 0; i < 46; i++) motes.push({ x: Math.random(), y: Math.random(), r: .6 + Math.random() * 1.6, s: .00004 + Math.random() * .00012, p: Math.random() * 6.28, hue: Math.random() < .7 ? '247,225,160' : '160,240,190' });
+  const tints = ['190,230,255', '255,190,225', '200,255,200'];
+  for (let i = 0; i < 3; i++) fairies.push({ x: Math.random() * innerWidth, y: Math.random() * innerHeight, t: Math.random() * 100, c: tints[i], k: .6 + i * .25 });
+  const guide = { x: mouse.x, y: mouse.y, c: '205,232,255' };
+  function glow(x, y, r, c, a) {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, `rgba(${c},${a})`); g.addColorStop(.25, `rgba(${c},${a * .45})`); g.addColorStop(1, `rgba(${c},0)`);
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill();
+  }
+  function fairy(x, y, c, t, scale) {
+    const flap = Math.abs(Math.sin(t * 22)) * .8 + .2;
+    glow(x * dpr, y * dpr, 34 * dpr * scale, c, .38);
+    ctx.fillStyle = `rgba(${c},.35)`;
+    for (const s of [-1, 1]) { ctx.beginPath(); ctx.ellipse((x + s * 6 * scale) * dpr, (y - 2 * scale) * dpr, 6 * scale * dpr * flap, 3 * scale * dpr, s * .5, 0, 6.283); ctx.fill(); }
+    glow(x * dpr, y * dpr, 6 * dpr * scale, '255,255,255', .95);
+  }
+  let last = performance.now();
+  function frame(now) {
+    const dt = Math.min(50, now - last); last = now;
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter';
+    for (const m of motes) {
+      m.y -= m.s * dt; m.p += dt * .001; if (m.y < -.02) { m.y = 1.02; m.x = Math.random(); }
+      const x = (m.x + Math.sin(m.p) * .01) * W, y = m.y * H, a = .25 + Math.sin(m.p * 2.3) * .2;
+      glow(x, y, m.r * 4 * dpr, m.hue, Math.max(0, a));
+    }
+    for (const f of fairies) {
+      f.t += dt * .00025 * f.k;
+      const tx = innerWidth * (.5 + .45 * Math.sin(f.t * 1.3 + f.k * 4) * Math.cos(f.t * .7));
+      const ty = innerHeight * (.45 + .4 * Math.sin(f.t * 1.1 + f.k));
+      f.x += (tx - f.x) * .02; f.y += (ty - f.y) * .02;
+      fairy(f.x, f.y + Math.sin(now * .003 + f.k) * 4, f.c, now / 1000 + f.k, .75);
+    }
+    const tx = mouse.x + 26, ty = mouse.y - 22;
+    guide.x += (tx - guide.x) * .045; guide.y += (ty - guide.y) * .045;
+    fairy(guide.x, guide.y + Math.sin(now * .004) * 5, guide.c, now / 1000, 1);
+    for (let i = sparks.length - 1; i >= 0; i--) {
+      const p = sparks[i]; p.life -= dt; if (p.life <= 0) { sparks.splice(i, 1); continue; }
+      p.vy += .0006 * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+      glow(p.x * dpr, p.y * dpr, p.r * dpr * (p.life / p.max) * 3, p.c, .9 * (p.life / p.max));
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  return {
+    burst(x, y, n = 80) {
+      for (let i = 0; i < n; i++) {
+        const a = Math.random() * 6.283, v = .1 + Math.random() * .45;
+        sparks.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - .2, r: 1.5 + Math.random() * 2.5, life: 900 + Math.random() * 900, max: 1800,
+          c: ['247,225,160', '160,240,190', '205,232,255', '255,200,140'][i % 4] });
+      }
+      if (reduce) requestAnimationFrame(frame);
+    },
+  };
+})();
+
+/* ---------- helpers ---------- */
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 3800); }
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+let saveT; function save() { clearTimeout(saveT); saveT = setTimeout(() => api.save(opts()), 250); }
+function opts(extra) {
+  return Object.assign({ nup: S.nup, out: S.out, seed: $('#seed').value.trim(), zip: S.zip, spoiler: S.spoiler,
+    make_nup: S.make_nup, folder: S.folder, nup_title: $('#nupTitle').value, randomizer: S.randomizer }, extra || {});
+}
+
+/* ---------- rendering ---------- */
+function renderTiles() {
+  const el = $('#tiles'); el.innerHTML = '';
+  for (const c of S.categories) {
+    const b = document.createElement('button');
+    b.className = 'tile' + (S.randomizer.shuffle.includes(c.key) ? ' on' : '');
+    b.style.setProperty('--c', COLORS[c.key] || 'var(--gold)');
+    b.innerHTML = `<span class="check">${ICONS.tick}</span><div class="top"><span class="ico">${ICONS[c.key] || ''}</span>
+      <div><div class="name">${esc(c.label)}</div><div class="count">${c.count} locations</div></div></div>
+      <div class="note">${esc(c.note)}</div>${c.experimental ? '<span class="tag">Experimental</span>' : ''}`;
+    b.onclick = () => {
+      const sh = S.randomizer.shuffle, i = sh.indexOf(c.key);
+      if (i >= 0) sh.splice(i, 1); else sh.push(c.key);
+      b.classList.toggle('on', i < 0); summary(); save();
+      if (i < 0) { const r = b.getBoundingClientRect(); fx.burst(r.left + 30, r.top + 30, 26); }
+    };
+    el.appendChild(b);
+  }
+  for (const u of S.unavailable) {
+    const b = document.createElement('div');
+    b.className = 'tile locked'; b.style.setProperty('--c', COLORS[u.key] || 'var(--shadow)'); b.title = u.note;
+    b.innerHTML = `<span class="check">${ICONS.lock}</span><div class="top"><span class="ico">${ICONS[u.key] || ''}</span>
+      <div><div class="name">${esc(u.label)}</div><div class="count">Not available yet</div></div></div><div class="note">${esc(u.note)}</div>`;
+    el.appendChild(b);
+  }
+}
+
+function renderDungeon() {
+  const el = $('#ditems'); el.innerHTML = '';
+  const all = ['vanilla', 'own_dungeon', 'anywhere'];
+  for (const d of S.dungeon_items) {
+    const row = document.createElement('div'); row.className = 'ditem';
+    const choices = all.filter(c => d.choices.includes(c) || d.locked[c]);
+    row.innerHTML = `<div class="row"><div class="lbl">${ICONS[d.key] || ''}${esc(d.label)}</div><div class="seg"><span class="knob"></span>${choices.map(c =>
+      `<button data-v="${c}" ${d.choices.includes(c) ? '' : 'disabled'} title="${esc(d.locked[c] || (d.notes || {})[c] || '')}">${esc(S.choice_labels[c] || c)}</button>`).join('')}</div></div><div class="why"></div>`;
+    const seg = row.querySelector('.seg'), why = row.querySelector('.why');
+    const set = (v, anim) => {
+      S.randomizer[d.key] = v;
+      seg.querySelectorAll('button').forEach(b => b.classList.toggle('sel', b.dataset.v === v));
+      placeKnob(seg, v, anim);
+      const locked = Object.values(d.locked);
+      why.textContent = (d.notes || {})[v] || (locked.length && v === 'vanilla' ? locked[0] : '');
+    };
+    seg.querySelectorAll('button:not(:disabled)').forEach(b => b.onclick = () => { set(b.dataset.v, true); save(); });
+    el.appendChild(row);
+    requestAnimationFrame(() => set(S.randomizer[d.key], false));
+  }
+}
+
+/* Segmented controls: every choice is the same width, so the highlight is placed by index in CSS
+   (--i of --n) and stays under the selected choice when the window or the layout changes size. */
+/* The bottom bar is fixed; keep room under the page for its real height (it wraps to two rows
+   on narrow windows), so the last card can always be scrolled into view. */
+function reserveForgeSpace() {
+  const bar = document.querySelector('.forge'), wrap = document.querySelector('.wrap');
+  if (!bar || !wrap) return;
+  const fit = () => { wrap.style.paddingBottom = (bar.getBoundingClientRect().height + 36) + 'px'; };
+  fit();
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(bar);
+  addEventListener('resize', fit);
+}
+reserveForgeSpace();
+
+function placeKnob(seg, value, anim) {
+  const btns = [...seg.querySelectorAll('button')];
+  const i = Math.max(0, btns.findIndex(b => b.dataset.v === value));
+  const knob = seg.querySelector('.knob');
+  if (!anim) knob.style.transition = 'none';
+  seg.style.setProperty('--n', btns.length);
+  seg.style.setProperty('--i', i);
+  btns.forEach((b, k) => b.classList.toggle('sel', k === i));
+  if (!anim) requestAnimationFrame(() => requestAnimationFrame(() => { knob.style.transition = ''; }));
+}
+
+function renderWorld() {
+  const W = S.world, seg = $('#logicSeg'), lg = W.logic;
+  if (!seg._built) {
+    seg._built = true;
+    for (const c of lg.choices) {
+      const b = document.createElement('button'); b.dataset.v = c; b.textContent = lg.labels[c];
+      b.onclick = () => { setLogic(c, true); save(); }; seg.appendChild(b);
+    }
+  }
+  const setLogic = (v, anim) => {
+    S.randomizer.logic = v;
+    seg.querySelectorAll('button').forEach(b => b.classList.toggle('sel', b.dataset.v === v));
+    placeKnob(seg, v, anim);
+    const why = $('#logicWhy'); why.textContent = lg.notes[v] || ''; why.style.color = v === 'none' ? 'var(--bad)' : '';
+  };
+  requestAnimationFrame(() => setLogic(S.randomizer.logic || 'logic', false));
+  const box = $('#worldOpts'); box.innerHTML = '';
+  for (const [key, c] of Object.entries(W)) {
+    if (key === 'logic') continue;
+    const row = document.createElement('div');
+    row.className = 'opt' + (S.randomizer[key] ? ' on' : '');
+    row.innerHTML = `<span class="sw"></span><div><div class="t">${esc(c.label)}</div><div class="d">${esc(c.note)}</div></div>`;
+    row.onclick = () => { S.randomizer[key] = !S.randomizer[key]; row.classList.toggle('on'); save(); };
+    box.appendChild(row);
+  }
+}
+
+function renderShops() {
+  const si = S.shops.shop_items, sp = S.shops.shop_prices;
+  const row = $('#optShopItems');
+  $('#shopItemsLabel').textContent = si.label; $('#shopItemsNote').textContent = si.note;
+  row.classList.toggle('on', !!S.randomizer.shop_items);
+  row.onclick = () => { S.randomizer.shop_items = !S.randomizer.shop_items; row.classList.toggle('on'); save(); };
+  const seg = $('#priceSeg');
+  if (!seg._built) {
+    seg._built = true;
+    for (const c of sp.choices) {
+      const b = document.createElement('button'); b.dataset.v = c; b.textContent = sp.labels[c];
+      b.onclick = () => { setPrice(c, true); save(); }; seg.appendChild(b);
+    }
+  }
+  const setPrice = (v, anim) => {
+    S.randomizer.shop_prices = v;
+    seg.querySelectorAll('button').forEach(b => b.classList.toggle('sel', b.dataset.v === v));
+    placeKnob(seg, v, anim);
+    $('#priceWhy').textContent = sp.notes[v] || '';
+  };
+  requestAnimationFrame(() => setPrice(S.randomizer.shop_prices || 'vanilla', false));
+}
+
+function renderOptions() {
+  const box = $('#cutOpts'); box.innerHTML = '';
+  for (const [key, c] of Object.entries(S.cutscene_options)) {
+    const row = document.createElement('div');
+    row.className = 'opt' + (S.randomizer[key] ? ' on' : '');
+    row.innerHTML = `<span class="sw"></span><div><div class="t">${esc(c.label)}</div><div class="d">${esc(c.note)}</div></div>`;
+    row.onclick = () => { S.randomizer[key] = !S.randomizer[key]; row.classList.toggle('on'); summary(); save(); };
+    box.appendChild(row);
+  }
+  $('#autoSkipNote').textContent = S.auto_skip_note;
+  renderShops();
+  renderWorld();
+  const o = $('#optKeep');
+  o.classList.toggle('on', !!S.randomizer.keep_event_chests);
+  o.onclick = () => { S.randomizer.keep_event_chests = !S.randomizer.keep_event_chests; o.classList.toggle('on'); save(); };
+  for (const [id, key] of [['#chipSpoiler', 'spoiler'], ['#chipZip', 'zip'], ['#chipNup', 'make_nup'], ['#chipFolder', 'folder']]) {
+    const c = $(id); c.classList.toggle('on', !!S[key]);
+    c.onclick = () => { S[key] = !S[key]; c.classList.toggle('on'); save(); if (key === 'make_nup') { setDump(lastDump); previewTitle(); } };
+  }
+  $('#outPath').textContent = S.out; $('#outPath').title = S.out;
+  const t = $('#nupTitle'); if (!t._bound) { t.value = S.nup_title; t._bound = true;
+    t.addEventListener('input', () => { previewTitle(); save(); }); $('#seed').addEventListener('input', previewTitle); }
+  previewTitle();
+}
+
+let titleT;
+function previewTitle() {
+  clearTimeout(titleT);
+  titleT = setTimeout(async () => {
+    const name = await api.preview_title($('#nupTitle').value, $('#seed').value.trim());
+    $('#titlePreview').innerHTML = S.make_nup ? `Shows as <b>${esc(name)}</b>` : 'Only used for the .nup output, which is off.';
+  }, 120);
+}
+
+function summary() {
+  const on = S.categories.filter(c => S.randomizer.shuffle.includes(c.key));
+  const n = on.reduce((a, c) => a + c.count, 0);
+  const cuts = ['skip_intro', 'skippable_cutscenes'].filter(k => S.randomizer[k]).length;
+  $('#summary').textContent = on.length ? `${n} locations · ${on.length} categor${on.length > 1 ? 'ies' : 'y'}`
+    : (cuts ? 'cutscene options only' : 'dungeon items only');
+}
+
+let lastDump = { state: 'empty' };
+function setDump(st) {
+  lastDump = st;
+  dumpState = st.state;
+  const box = $('#nupStatus'), msg = box.querySelector('.msg'), p = $('#nupPath');
+  p.classList.toggle('empty', !S.nup); p.querySelector('span').textContent = S.nup || 'No dump selected'; p.title = S.nup || '';
+  box.className = 'status';
+  if (st.state === 'busy') { box.classList.add('busy'); msg.textContent = 'Checking the dump…'; }
+  else if (st.state === 'ok') { box.classList.add('ok'); msg.textContent = `Recognized: Ocarina of Time with the 2.0 update. All ${st.count} needed files verified.`; }
+  else if (st.state === 'cached' && S.make_nup) { box.classList.add('warn'); msg.textContent = 'Select your dump: the patched .nup is built from it. (Game files cached from an earlier run are enough only for a mod folder.)'; }
+  else if (st.state === 'cached') { box.classList.add('ok'); msg.textContent = 'Game files are cached from an earlier run, so no dump is needed for a mod folder.'; }
+  else if (st.state === 'error') { box.classList.add('bad'); msg.textContent = st.message + (st.cached && !S.make_nup ? ' (Cached game files will be used instead.)' : ''); }
+  else { msg.textContent = 'Select your dump to begin.'; }
+}
+async function checkDump() { setDump({ state: 'busy' }); setDump(await api.check_nup(S.nup)); }
+
+/* ---------- generate ---------- */
+const veil = $('#veil'), logEl = $('#log');
+window.onProgress = (done, total) => {
+  const p = $('#prog'); p.classList.add('show');
+  const f = total ? done / total : 0;
+  $('#progBar').style.width = (f * 100).toFixed(1) + '%';
+  $('#progLbl').textContent = `Copying your dump: ${(done / 1024).toFixed(1)} of ${(total / 1024).toFixed(1)} GB`;
+};
+window.onLog = line => { const d = document.createElement('div'); d.textContent = line; if (/Traceback|Error/.test(line)) d.className = 'err'; logEl.appendChild(d); logEl.scrollTop = logEl.scrollHeight; };
+
+function runUI(stage, data) {
+  const panel = $('#panel'), res = $('#result'), act = $('#actions'), spin = $('#spin');
+  panel.classList.remove('bad'); res.className = 'result'; act.innerHTML = ''; spin.classList.remove('done');
+  if (stage === 'start') {
+    logEl.innerHTML = ''; $('#prog').classList.remove('show'); $('#progBar').style.width = '0'; $('#runTitle').textContent = 'Forging seed…'; $('#runSub').textContent = 'Placing items and patching the maps.';
+    veil.classList.add('show');
+  } else if (stage === 'exists') {
+    $('#runTitle').textContent = 'Seed already forged'; $('#runSub').textContent = `A mod for seed “${data.seed}” is already in the output folder.`;
+    act.innerHTML = '<button class="btn ghost" id="aNo">Keep it</button><button class="btn" id="aYes">Replace it</button>';
+    $('#aNo').onclick = () => veil.classList.remove('show'); $('#aYes').onclick = () => generate(true);
+    spin.classList.add('done');
+  } else if (stage === 'done') {
+    const r = data; spin.classList.add('done');
+    $('#runTitle').textContent = 'Your seed is ready'; $('#runSub').textContent = `Seed ${r.seed}`;
+    const steps = [];
+    if (r.nup) steps.push(`Load <code>${esc(r.name)}.nup</code> in your emulator, just like the original dump. Your original is unchanged.`);
+    if (r.mod_dir || r.zip) steps.push(`${r.nup ? 'Or copy' : 'Copy'} the <code>${esc(r.name)}</code> folder${r.zip && !r.mod_dir ? ' (inside the .zip)' : ''} into your emulator's mod folder for title <code>0400486024DEC000</code>.`);
+    if (r.spoiler) steps.push('The spoiler log lists where every item is; open it only if you want spoilers.');
+    res.innerHTML = `<div class="big">${esc(r.name)}${r.nup ? '.nup' : ''}</div><ol>${steps.map(x => `<li>${x}</li>`).join('')}</ol>`;
+    $('#prog').classList.remove('show');
+    res.classList.add('show');
+    act.innerHTML = `${r.spoiler ? '<button class="btn ghost" id="aLog">Spoiler log</button>' : ''}<button class="btn ghost" id="aClose">Close</button><button class="btn" id="aOpen">Open output folder</button>`;
+    $('#aOpen').onclick = () => api.open_path(r.out); $('#aClose').onclick = () => veil.classList.remove('show');
+    if (r.spoiler) $('#aLog').onclick = () => api.open_path(r.spoiler);
+    const rect = $('#panel').getBoundingClientRect(); fx.burst(rect.left + 60, rect.top + 60, 120);
+  } else if (stage === 'error') {
+    panel.classList.add('bad'); spin.classList.add('done');
+    $('#runTitle').textContent = 'Something went wrong'; $('#runSub').textContent = data;
+    act.innerHTML = '<button class="btn" id="aClose">Close</button>'; $('#aClose').onclick = () => veil.classList.remove('show');
+  }
+}
+
+async function generate(overwrite) {
+  if (!S.make_nup && !S.folder && !S.zip) { toast('Choose what to make: .nup, mod folder or .zip.'); return; }
+  if (S.make_nup && dumpState !== 'ok') {
+    const c = $('#dumpCard'); c.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake');
+    toast(dumpState === 'busy' ? 'Still checking the dump, one moment.' : 'A patched .nup is built from your dump: select it first.'); return;
+  }
+  if (dumpState !== 'ok' && dumpState !== 'cached' && !(dumpState === 'error' && S.cached)) {
+    const c = $('#dumpCard'); c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake');
+    toast('Select your Ocarina of Time .nup dump first.'); return;
+  }
+  if (!$('#seed').value.trim()) await rollSeed();
+  runUI('start'); $('#go').disabled = true;
+  try {
+    const r = await api.generate(opts({ overwrite: !!overwrite }));
+    if (r.ok) { runUI('done', r.result); S.cached = true; }
+    else if (r.exists) runUI('exists', r);
+    else runUI('error', r.error);
+  } catch (e) { runUI('error', String(e)); }
+  $('#go').disabled = false;
+}
+
+async function rollSeed() {
+  $('#seed').value = await api.random_seed();
+  const d = $('#dice'); d.classList.remove('roll'); void d.offsetWidth; d.classList.add('roll');
+}
+
+/* ---------- updates ---------- */
+window.onUpdate = st => {
+  const box = $('#update'), msg = $('#updMsg');
+  box.className = 'update';
+  if (!st || ['idle', 'current', 'offline'].includes(st.state)) return;
+  box.classList.add('show');
+  if (st.state === 'downloading') {
+    box.classList.add('dl');
+    const pct = st.total ? Math.round(100 * st.done / st.total) : 0;
+    msg.innerHTML = `Downloading update ${esc(st.version)}… <small>${pct}%</small>`;
+    $('#updFill').style.width = pct + '%';
+  } else if (st.state === 'ready') {
+    box.classList.add('ready');
+    msg.innerHTML = `Update ${esc(st.version)} is ready <small>Restart now, or it installs the next time you open the app.</small>`;
+  } else if (st.state === 'available') {
+    msg.innerHTML = `Version ${esc(st.version)} is out <small>You're running from source: pull the latest code to update.</small>`;
+  } else if (st.state === 'failed') {
+    msg.innerHTML = `Couldn't download update ${esc(st.version)} <small>${esc(st.error || '')}. It will try again next time.</small>`;
+  }
+};
+
+/* ---------- boot ---------- */
+async function boot(theApi) {
+  api = theApi;
+  S = await api.init();
+  $('#ver').textContent = 'v' + S.version;
+  renderTiles(); renderDungeon(); renderOptions(); summary();
+  setDump({ state: S.nup ? 'busy' : (S.cached ? 'cached' : 'empty') });
+  checkDump();
+  $('#nupBrowse').onclick = async () => { const p = await api.browse_nup(S.nup); if (p) { S.nup = p; save(); checkDump(); } };
+  $('#outBrowse').onclick = async () => { const p = await api.browse_out(S.out); if (p) { S.out = p; renderOptions(); save(); } };
+  $('#dice').onclick = async () => { await rollSeed(); previewTitle(); };
+  $('#openTracker').onclick = () => api.open_tracker();
+  $('#updX').onclick = () => $('#update').classList.remove('show');
+  $('#updGo').onclick = async () => { const r = await api.restart_to_update(); if (r && !r.ok) toast(r.error); };
+  if (api.start_update_check) onUpdate(await api.start_update_check());
+  $('#go').onclick = () => generate(false);
+  $('#seed').addEventListener('keydown', e => { if (e.key === 'Enter') generate(false); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#go').disabled) veil.classList.remove('show'); });
+}
+
+/* In the app, pywebview provides window.pywebview.api. Opened in a plain browser, a stand-in
+   API with sample data lets the page be previewed. */
+function mockApi() {
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  const st = { version: '0.3.0', nup: 'C:\\Users\\you\\Desktop\\OOT2\\The Legend of Zelda Ocarina of Time [0400486024DEC000][v131072].nup',
+    out: 'C:\\Users\\you\\Documents\\OoT Randomizer', zip: false, spoiler: true, cached: true, make_nup: true, folder: false, nup_title: 'OoT Remake Rando - {date}',
+    randomizer: { shuffle: ['chest'], small_keys: 'vanilla', boss_keys: 'vanilla', maps_compasses: 'own_dungeon', keep_event_chests: false, skip_intro: false, skippable_cutscenes: false, shop_items: false, shop_prices: 'vanilla', logic: 'logic', open_forest: false, open_deku: false, open_door: false, open_fountain: false },
+    categories: [
+      { key: 'chest', label: 'Treasure chests', count: 181, experimental: false, note: 'Every chest in the overworld and dungeons.' },
+      { key: 'scrub', label: 'Business Scrubs', count: 18, experimental: true, note: 'Deku Scrubs that sell an item. They can sell major items too.' },
+      { key: 'skulltula', label: 'Gold Skulltulas', count: 100, experimental: true, note: 'Each one drops a shuffled pick-up instead of its token. Tokens can turn up anywhere.' },
+      { key: 'pot', label: 'Pots, crates, grass & rocks', count: 146, experimental: true, note: 'Only those that always drop the same thing (rupees, hearts, magic, ammo).' },
+      { key: 'freestanding', label: 'Heart Pieces & Containers', count: 21, experimental: true, note: 'Heart Pieces lying in the world and the Heart Containers left by bosses.' }],
+    unavailable: [{ key: 'song', label: 'Songs', note: 'Songs are taught in cutscene scripts, which the randomizer cannot edit yet. They stay with their teachers.' }],
+    dungeon_items: [
+      { key: 'small_keys', label: 'Small Keys', choices: ['vanilla'], locked: { own_dungeon: 'Needs room-by-room key logic, which is not mapped yet.', anywhere: 'Keys are generic: one only opens doors in the dungeon it is found in.' }, notes: {} },
+      { key: 'boss_keys', label: 'Boss Keys', choices: ['vanilla', 'own_dungeon'], locked: { anywhere: 'A Boss Key only works in the dungeon it is found in.' }, notes: {} },
+      { key: 'maps_compasses', label: 'Maps & Compasses', choices: ['vanilla', 'own_dungeon', 'anywhere'], locked: {}, notes: { anywhere: 'Outside their own dungeon they show nothing.' } }],
+    choice_labels: { vanilla: 'Vanilla', own_dungeon: 'Own dungeon', anywhere: 'Anywhere' },
+    world: { logic: { choices: ['logic', 'none'], labels: { logic: 'Logic', none: 'No logic' }, notes: { logic: 'Every seed can be beaten: an item is only placed where you can reach it with the items found before it.', none: 'Items go anywhere. A seed can be impossible to finish, for example with a key item locked behind itself.' } },
+      open_forest: { label: 'Open Kokiri Forest', note: 'The Kokiri boy guarding the exit is gone from the start, so you can leave before the Deku Tree.' },
+      open_deku: { label: 'Open Deku Tree', note: 'Mido stops blocking the Deku Tree, so no sword or shield is needed to go in.' },
+      open_door: { label: 'Open Door of Time', note: 'The Door of Time starts open: you can pull the Master Sword without the Spiritual Stones, Ocarina or Song of Time.' },
+      open_fountain: { label: "Open Zora's Fountain", note: "King Zora has already moved aside, so the way to Zora's Fountain is open without Ruto's Letter." } },
+    shops: { shop_items: { label: 'Shuffle shop stock', note: 'Consumables, potions and bottled items swap places across every shop. Tunics, shields and masks stay put, because the logic counts on buying them there.' },
+      shop_prices: { choices: ['vanilla', 'random', 'cheap'], labels: { vanilla: 'Vanilla', random: 'Random', cheap: 'Cheap' }, notes: { vanilla: 'Original prices.', random: 'Each item costs a quarter to twice its original price (at most 300). Tunics and shields never cost more than usual.', cheap: 'Everything costs 10 to 60 percent of its original price.' } } },
+    cutscene_options: {
+      skip_intro: { label: 'Skip the intro', note: "Navi's wake-up scene is skipped, so you take control right away. The narrated opening plays while Kokiri Forest loads, so it can't be cut; it becomes skippable with the Skip button instead." },
+      skippable_cutscenes: { label: 'Every cutscene skippable', note: "The game already lets you skip almost every cutscene. This also unlocks the three that normally can't be skipped: the opening, the title and the credits." } },
+    auto_skip_note: 'Of 331 cutscene calls, most are scripted scenes that move Link, load areas, hand over items or start fights, and cutting them blindly can leave the screen black or break progression. Use the Skip button instead; the option above makes it work everywhere.' };
+  return {
+    init: async () => st, save: async () => true, open_tracker: async () => true,
+    preview_title: async (t, seed) => (t || '').trim() ? t.replace('{date}', new Date().toISOString().slice(0, 10)).replace('{seed}', seed || '<seed>') : '(original name)', random_seed: async () => String(Math.floor(Math.random() * 1e9)),
+    browse_nup: async () => null, browse_out: async () => null, open_path: async () => true,
+    check_nup: async () => { await wait(700); return { state: 'ok', count: 94, cached: true }; },
+    generate: async o => {
+      for (const l of ['Using cached game files.', `Seed ${o.seed}: 466 locations shuffled, 367 changed, 4 progression spheres (0.0s).`, 'Spoiler log: …', 'Patching maps …', 'Mod folder: … (87 files)']) { await wait(450); onLog(l); }
+      if (o.make_nup) for (let i = 0; i <= 20; i++) { await wait(80); onProgress(i * 1222, 24435); }
+      return { ok: true, result: { seed: o.seed, name: 'OoTRando-' + o.seed, out: o.out, spoiler: 'x', mod_dir: o.folder ? 'x' : null, nup: o.make_nup ? 'x' : null, zip: o.zip ? 'x' : null } };
+    },
+  };
+}
+
+if (window.pywebview && window.pywebview.api) boot(window.pywebview.api);
+else {
+  let started = false;
+  addEventListener('pywebviewready', () => { if (!started) { started = true; boot(window.pywebview.api); } });
+  setTimeout(() => { if (!started && !window.pywebview) { started = true; boot(mockApi()); } }, 800);
+}
+</script>
+</body>
+</html>
