@@ -8,8 +8,8 @@ pairs from 0x28 up to the data offset, grouped by type. Items are found when the
 IsGet.<actor> flag (murmur3 of the name, see data/tracker.json) is 1.
 
 Toggle: the overlay window shows and hides on a controller button combo (read with XInput,
-which sees Xbox controllers) or a keyboard key, polled at 60 Hz. Showing never activates the
-window, so the game keeps focus and input.
+which sees Xbox controllers) or a keyboard key, polled at 60 Hz, but only while Lichii's window
+is in front. Showing never activates the window, so the game keeps focus and input.
 """
 import base64, ctypes, glob, json, os, struct, sys, threading, time
 
@@ -176,8 +176,53 @@ def _xinput():
     return None
 
 
+GAME_EXES = ('lichii.exe',)  # the emulator; its updater (lichii-updater.exe) doesn't count
+
+
+class Foreground:
+    """Tells whether the window in front belongs to the emulator. The key and the combo are
+    read system-wide, so without this F10 in any other app would toggle the tracker."""
+
+    def __init__(self):
+        self.ok = os.name == 'nt'
+        self._pid, self._game = None, False
+        if not self.ok:
+            return
+        self.u, self.k = ctypes.WinDLL('user32'), ctypes.WinDLL('kernel32')
+        self.u.GetForegroundWindow.restype = ctypes.c_void_p
+        self.u.GetWindowThreadProcessId.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_ulong)]
+        self.k.OpenProcess.restype = ctypes.c_void_p
+        self.k.OpenProcess.argtypes = [ctypes.c_ulong, ctypes.c_int, ctypes.c_ulong]
+        self.k.QueryFullProcessImageNameW.argtypes = [ctypes.c_void_p, ctypes.c_ulong, ctypes.c_wchar_p, ctypes.POINTER(ctypes.c_ulong)]
+        self.k.CloseHandle.argtypes = [ctypes.c_void_p]
+
+    def exe(self, pid):
+        h = self.k.OpenProcess(0x1000, False, pid)  # PROCESS_QUERY_LIMITED_INFORMATION
+        if not h:
+            return ''
+        try:
+            buf, n = ctypes.create_unicode_buffer(1024), ctypes.c_ulong(1024)
+            return buf.value if self.k.QueryFullProcessImageNameW(h, 0, buf, ctypes.byref(n)) else ''
+        finally:
+            self.k.CloseHandle(h)
+
+    def game(self):
+        if not self.ok:
+            return True
+        hwnd = self.u.GetForegroundWindow()
+        if not hwnd:
+            return False
+        pid = ctypes.c_ulong()
+        self.u.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+        if pid.value != self._pid:  # look the name up once per focused process
+            self._pid = pid.value
+            self._game = os.path.basename(self.exe(pid.value)).lower() in GAME_EXES
+        return self._game
+
+
 class Toggle(threading.Thread):
-    """Calls on_toggle() each time the combo (or key) goes from released to fully pressed."""
+    """Calls on_toggle() each time the combo (or key) goes from released to fully pressed,
+    only while the emulator's window is in front."""
 
     def __init__(self, on_toggle, combo='ls_rs', key='F10'):
         super().__init__(daemon=True)
@@ -185,6 +230,7 @@ class Toggle(threading.Thread):
         self.set(combo, key)
         self.xi = _xinput()
         self.user32 = ctypes.WinDLL('user32') if os.name == 'nt' else None
+        self.front = Foreground()
 
     def set(self, combo, key):
         self.mask = 0
@@ -205,7 +251,7 @@ class Toggle(threading.Thread):
     def run(self):
         was = False
         while not self.stop.is_set():
-            now = self.pressed()
+            now = self.pressed() and self.front.game()
             if now and not was:
                 try:
                     self.on_toggle()
