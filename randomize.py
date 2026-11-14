@@ -16,7 +16,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, 'tools'))
 from randomizer import logic, fill, names, settings as cfg
 
-VERSION = '0.8.2'
+VERSION = '0.8.3'
 
 
 def load_locations(kinds=None):
