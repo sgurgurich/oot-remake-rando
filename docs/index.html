@@ -46,7 +46,6 @@ h1 { margin: 10px 0 12px; font: 400 clamp(34px, 6vw, 56px)/1.05 var(--serif); le
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .75), transparent); animation: shine 3.6s ease-in-out infinite; }
 @keyframes shine { 0%, 55% { left: -100px; } 85%, 100% { left: 120%; } }
 .meta { color: var(--faint); font-size: 13px; }
-.meta code { font: 12px Consolas, monospace; color: var(--muted); word-break: break-all; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-top: 30px; }
 .card { position: relative; padding: 20px; border-radius: 16px; background: var(--panel); border: 1px solid var(--line); backdrop-filter: blur(10px); }
 .card::before { content: ""; position: absolute; left: 20px; right: 20px; top: -1px; height: 1px; background: linear-gradient(90deg, transparent, var(--c, var(--gold)), transparent); }
@@ -143,15 +142,9 @@ async function loadRelease() {
     if (!r.ok) throw new Error(r.status);
     const rel = await r.json();
     const exe = (rel.assets || []).find(a => a.name === 'OoTRando.exe');
-    const sha = (rel.assets || []).find(a => a.name === 'OoTRando.exe.sha256');
     const date = new Date(rel.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
     $('#dlInfo').textContent = `${rel.tag_name}${exe ? ' · ' + (exe.size / 1048576).toFixed(1) + ' MB' : ''}`;
     $('#meta').innerHTML = `Released ${esc(date)} &middot; <a href="${esc(rel.html_url)}">release notes</a>`;
-    // GitHub's API gives each file's SHA-256 as `digest`. (Fetching the .sha256 file itself
-    // doesn't work from a web page: github.com downloads don't allow cross-origin reads.)
-    const digest = exe && /^sha256:([0-9a-f]{64})$/.exec(exe.digest || '');
-    if (digest) $('#meta').innerHTML += `<br>SHA-256 <code>${digest[1]}</code>`;
-    else if (sha) $('#meta').innerHTML += `<br><a href="${esc(sha.browser_download_url)}">SHA-256 checksum</a>`;
     $('#newHead').textContent = `What's new in ${rel.tag_name}`;
     $('#notes').textContent = (rel.body || 'No notes for this release.').replace(/\*\*/g, '');
   } catch (e) {
