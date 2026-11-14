@@ -66,6 +66,17 @@ BASE_MILESTONES = [
 ]
 
 
+# Display names for the milestones (the logic viewer, docs/logic.html, shows these).
+MILESTONE_LABELS = {
+    'deku': 'Deku Tree', 'out': 'Leave Kokiri Forest', 'dodongo': "Dodongo's Cavern",
+    'jabu': "Jabu-Jabu's Belly", 'adult': 'Become adult', 'forest': 'Forest Temple',
+    'fire': 'Fire Temple', 'ice': 'Ice Cavern', 'water': 'Water Temple', 'well': 'Bottom of the Well',
+    'shadow': 'Shadow Temple', 'spirit_reach': 'Reach the Spirit Temple', 'spirit': 'Spirit Temple',
+    'gtg': 'Gerudo Training Ground', 'light_arrows': 'Light Arrows', 'ganon': "Ganon's Castle",
+    'child_ow': 'Child overworld', 'adult_ow': 'Adult overworld', 'win': 'Beat Ganon',
+}
+
+
 def milestones(opts=None):
     """The milestone table for the world options (randomizer/settings.py WORLD):
       open_deku      Mido no longer blocks the Deku Tree: entering needs no sword, and Gohma
@@ -132,12 +143,10 @@ DUNGEON_RULE = {
 
 
 def _rule(pre, items, vanilla):
-    """Predicate: milestones `pre` done and `items` held, except the location's own vanilla
-    item. The original game gives that item at this very spot, so it is never needed to
-    reach it; dropping it is what lets e.g. the Slingshot stay in the Deku Tree."""
-    items = tuple(i for i in items if i != vanilla)
-    desc = ' + '.join(list(pre) + [i.replace('Item_', '') for i in items]) or 'none'
-    return desc, lambda s: all(s.ev[p] for p in pre) and s.has(*items)
+    """Milestones `pre` done and `items` held, except the location's own vanilla item. The
+    original game gives that item at this very spot, so it is never needed to reach it;
+    dropping it is what lets e.g. the Slingshot stay in the Deku Tree."""
+    return tuple(pre), tuple(i for i in items if i != vanilla)
 
 
 def _milestone(name, vanilla, extra=()):
@@ -147,6 +156,13 @@ def _milestone(name, vanilla, extra=()):
 
 def rule_for(loc):
     """Return (description, predicate(State)) for a location dict from data/locations.json."""
+    pre, items = location_rule(loc)
+    desc = ' + '.join(list(pre) + [i.replace('Item_', '') for i in items]) or 'none'
+    return desc, lambda s: all(s.ev[p] for p in pre) and s.has(*items)
+
+
+def location_rule(loc):
+    """Return (milestones, items) needed to reach a location, for the current milestone table."""
     area, vanilla, event = loc['area'], loc['vanilla'], loc.get('event')
 
     # Identified individually: Mido's House (4 chests next to Link's house) and the

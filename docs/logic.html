@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logic Map</title>
+<meta name="description" content="Explore the OoT Remake Randomizer's logic: what each milestone and location needs, and what you can reach with the items you have.">
+<style>
+:root {
+  --bg0: #050f0a; --bg1: #0a1f15; --panel: rgba(9, 26, 17, .78); --panel2: rgba(0, 0, 0, .24); --line: rgba(232, 197, 106, .22); --line-hi: rgba(232, 197, 106, .55);
+  --gold: #e8c56a; --gold-hi: #f7e1a0; --gold-lo: #a9852f; --text: #eef3ea; --muted: #a8b9a9; --faint: #6f8574;
+  --ok: #49c27a; --ok-bg: rgba(73, 194, 122, .14); --miss: #ff8a78; --miss-bg: rgba(255, 138, 120, .1); --water: #4f9cf0;
+  --serif: "Palatino Linotype", "Book Antiqua", Palatino, Constantia, Georgia, serif;
+  --sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--text); font: 14px/1.5 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  background: radial-gradient(1100px 650px at 10% -10%, rgba(73, 194, 122, .14), transparent 60%),
+              radial-gradient(900px 600px at 100% 0%, rgba(232, 197, 106, .09), transparent 60%),
+              linear-gradient(180deg, var(--bg1), var(--bg0) 70%); background-color: var(--bg0); background-attachment: fixed; }
+a { color: var(--gold-hi); }
+button { font: inherit; color: inherit; }
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 16px 60px; }
+nav { display: flex; align-items: center; gap: 12px; padding: 16px 0 8px; flex-wrap: wrap; }
+nav .name { font: 400 17px var(--serif); color: var(--gold-hi); letter-spacing: .04em; text-decoration: none; }
+nav .links { margin-left: auto; display: flex; gap: 8px; }
+nav .links a { color: var(--muted); text-decoration: none; font-weight: 600; padding: 6px 12px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, .12); }
+nav .links a:hover { color: var(--text); border-color: var(--line-hi); }
+h1 { margin: 18px 0 4px; font: 400 clamp(28px, 5vw, 42px)/1.1 var(--serif); letter-spacing: .03em;
+  background: linear-gradient(180deg, var(--gold-hi), var(--gold) 55%, var(--gold-lo)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lede { color: var(--muted); max-width: 780px; margin: 0 0 18px; }
+.lede b { color: var(--text); font-weight: 600; }
+h2 { margin: 0; font: 400 19px var(--serif); color: var(--gold-hi); }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 16px; backdrop-filter: blur(10px); }
+.panel + .panel { margin-top: 14px; }
+.phead { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.phead .hint { color: var(--faint); font-size: 12.5px; }
+.phead .tools { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+.btn { padding: 5px 11px; border-radius: 9px; border: 1px solid rgba(255, 255, 255, .14); background: rgba(255, 255, 255, .04); cursor: pointer; font-weight: 600; font-size: 12.5px; color: var(--muted); }
+.btn:hover { color: var(--text); border-color: var(--line-hi); }
+
+/* sticky controls */
+.controls { position: sticky; top: 0; z-index: 5; margin: 0 -16px 14px; padding: 10px 16px; background: rgba(5, 15, 10, .9); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(232, 197, 106, .14); display: grid; gap: 10px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.row > .lbl { color: var(--faint); font-size: 11.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; min-width: 74px; }
+.toggle { display: inline-flex; align-items: center; gap: 8px; padding: 5px 11px 5px 6px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .12);
+  background: rgba(255, 255, 255, .03); cursor: pointer; font-weight: 600; font-size: 12.5px; color: var(--muted); transition: border-color .2s, color .2s, background .2s; }
+.toggle .sw { width: 26px; height: 15px; border-radius: 9px; background: rgba(255, 255, 255, .14); position: relative; transition: background .2s; flex: none; }
+.toggle .sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 11px; height: 11px; border-radius: 50%; background: #cfd8cf; transition: transform .2s; }
+.toggle[aria-pressed="true"] { color: var(--text); border-color: var(--line-hi); background: rgba(232, 197, 106, .1); }
+.toggle[aria-pressed="true"] .sw { background: var(--gold); }
+.toggle[aria-pressed="true"] .sw::after { transform: translateX(11px); background: #1c1305; }
+.item { padding: 5px 11px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .12); background: rgba(255, 255, 255, .03); cursor: pointer;
+  font-size: 12.5px; font-weight: 600; color: var(--muted); transition: all .18s; }
+.item:hover { border-color: var(--line-hi); color: var(--text); }
+.item[aria-pressed="true"] { background: var(--ok-bg); border-color: rgba(73, 194, 122, .6); color: #c9f2d8; }
+.score { display: flex; gap: 16px; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
+.score b { color: var(--text); font-size: 15px; }
+.score .win b { color: var(--gold-hi); }
+
+/* milestone map */
+#mapwrap { position: relative; overflow-x: auto; }
+#map { position: relative; min-width: 860px; padding: 4px 0; }
+#edges { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 0; }
+.layer { display: flex; justify-content: center; gap: 12px; margin: 0 0 34px; position: relative; z-index: 1; }
+.layer:last-child { margin-bottom: 4px; }
+.node { position: relative; width: 138px; padding: 8px 9px 9px; border-radius: 12px; cursor: pointer; text-align: center;
+  background: #0c1e15; border: 1px solid rgba(255, 255, 255, .1); transition: border-color .25s, background .25s, opacity .25s, box-shadow .25s, transform .15s; }
+.node:hover { transform: translateY(-1px); border-color: var(--line-hi); }
+.node .t { font: 400 14px/1.2 var(--serif); color: var(--muted); }
+.node .st { font-size: 10.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-top: 3px; }
+.node .its { display: flex; flex-wrap: wrap; gap: 3px; justify-content: center; margin-top: 6px; }
+.node .its span { font-size: 10.5px; padding: 1px 6px; border-radius: 6px; background: var(--miss-bg); color: var(--miss); border: 1px solid rgba(255, 138, 120, .25); }
+.node .its span.have { background: var(--ok-bg); color: #b8ecc9; border-color: rgba(73, 194, 122, .3); }
+.node.done { border-color: rgba(73, 194, 122, .55); background: #11301f; box-shadow: 0 0 22px -8px rgba(73, 194, 122, .7); }
+.node.done .t { color: var(--text); }
+.node.done .st { color: var(--ok); }
+.node.ready { border-color: rgba(232, 197, 106, .5); background: #1c2716; }
+.node.ready .t { color: var(--gold-hi); }
+.node.ready .st { color: var(--gold); }
+.node.locked { opacity: .62; }
+.node.sel { outline: 2px solid var(--gold-hi); outline-offset: 3px; box-shadow: 0 0 0 6px rgba(247, 225, 160, .14), 0 0 28px -4px rgba(247, 225, 160, .6); opacity: 1; }
+.node.win.done { border-color: var(--gold); background: #2a2c15; box-shadow: 0 0 30px -6px rgba(232, 197, 106, .8); }
+.node.win.done .st { color: var(--gold-hi); }
+#map.focus .node:not(.hit) { opacity: .25; }
+#map.focus .node.hit { border-color: var(--water); box-shadow: 0 0 18px -6px var(--water); }
+path.e { fill: none; stroke: rgba(255, 255, 255, .16); stroke-width: 1.5; stroke-dasharray: 4 4; transition: stroke .25s, opacity .25s; }
+path.e.on { stroke: rgba(73, 194, 122, .7); stroke-dasharray: none; }
+path.e.hl { stroke: var(--gold-hi); stroke-width: 2.2; stroke-dasharray: none; }
+#map.focus path.e { opacity: .25; }
+
+/* detail */
+.detail { margin-top: 6px; padding: 12px 14px; border-radius: 12px; background: var(--panel2); border: 1px solid rgba(255, 255, 255, .06); color: var(--muted); }
+.detail h3 { margin: 0 0 4px; font: 400 17px var(--serif); color: var(--gold-hi); }
+.detail .kv { display: grid; grid-template-columns: max-content 1fr; gap: 6px 14px; margin-top: 8px; align-items: baseline; }
+.detail .kv > span:nth-child(odd) { color: var(--faint); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip { font-size: 12px; padding: 2px 8px; border-radius: 7px; border: 1px solid rgba(255, 255, 255, .1); background: rgba(255, 255, 255, .04); color: var(--muted); white-space: nowrap; }
+.chip.ms { border-color: rgba(232, 197, 106, .35); color: var(--gold-hi); background: rgba(232, 197, 106, .06); cursor: pointer; }
+.chip.ms.ok { border-color: rgba(73, 194, 122, .45); color: #b8ecc9; background: var(--ok-bg); }
+.chip.it { color: var(--miss); background: var(--miss-bg); border-color: rgba(255, 138, 120, .25); }
+.chip.it.ok { color: #b8ecc9; background: var(--ok-bg); border-color: rgba(73, 194, 122, .3); }
+.chip.none { color: var(--ok); border-color: rgba(73, 194, 122, .3); }
+
+/* locations */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+.filters input, .filters select { background: rgba(0, 0, 0, .3); color: var(--text); border: 1px solid rgba(255, 255, 255, .14); border-radius: 9px; padding: 6px 10px; font: inherit; font-size: 13px; }
+.filters input { flex: 1 1 200px; min-width: 0; }
+.filters input:focus, .filters select:focus { outline: none; border-color: var(--line-hi); }
+.kind { padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .12); background: transparent; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--faint); }
+.kind[aria-pressed="true"] { color: var(--text); border-color: var(--line-hi); background: rgba(232, 197, 106, .08); }
+.active-filter { display: inline-flex; gap: 6px; align-items: center; font-size: 12.5px; color: var(--gold-hi); }
+details.area { border-top: 1px solid rgba(255, 255, 255, .06); }
+details.area > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 9px 4px; }
+details.area > summary::-webkit-details-marker { display: none; }
+details.area > summary::before { content: "›"; color: var(--gold); font-size: 18px; line-height: 1; transition: transform .2s; width: 10px; }
+details.area[open] > summary::before { transform: rotate(90deg); }
+details.area .an { font: 400 15.5px var(--serif); color: var(--text); }
+details.area .cnt { margin-left: auto; font-size: 12px; color: var(--faint); white-space: nowrap; }
+.bar { width: 80px; height: 5px; border-radius: 3px; background: rgba(255, 255, 255, .08); overflow: hidden; flex: none; }
+.bar i { display: block; height: 100%; background: var(--ok); border-radius: 3px; transition: width .3s; }
+.loc { display: grid; grid-template-columns: 10px minmax(0, 1.3fr) minmax(0, 1fr); gap: 4px 12px; align-items: start; padding: 7px 6px 7px 24px; border-radius: 8px; }
+.loc:hover { background: rgba(255, 255, 255, .03); }
+.loc .dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; background: var(--miss); box-shadow: 0 0 8px rgba(255, 138, 120, .5); }
+.loc.ok .dot { background: var(--ok); box-shadow: 0 0 8px rgba(73, 194, 122, .6); }
+.loc .nm { color: var(--text); min-width: 0; overflow-wrap: anywhere; }
+.loc .sub2 { color: var(--faint); font-size: 12px; }
+.loc .sub2 b { color: var(--muted); font-weight: 600; }
+.empty { padding: 20px; text-align: center; color: var(--faint); }
+.note { margin-top: 18px; color: var(--faint); font-size: 12.5px; max-width: 860px; }
+@media (max-width: 720px), (max-height: 600px) {
+  .controls { position: static; }
+}
+@media (max-width: 720px) {
+  .loc { grid-template-columns: 10px minmax(0, 1fr); padding-left: 8px; }
+  .loc .rq { grid-column: 2; }
+  .row > .lbl { min-width: 0; width: 100%; }
+  .bar { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="name" href="./">OoT Remake Randomizer</a>
+    <div class="links"><a href="./">Download</a><a href="https://github.com/sgurgurich/oot-remake-rando/blob/main/randomizer/logic.py">logic.py</a></div>
+  </nav>
+
+  <h1>Logic map</h1>
+  <p class="lede">How the randomizer decides what you can reach. Progress is a chain of <b>milestones</b>: each needs earlier milestones plus some items. Every location needs a set of milestones and items. Pick the items you hold to see what opens up, and switch the world options to see how they change the chain.</p>
+
+  <div class="controls" id="controls">
+    <div class="row" id="opts"><span class="lbl">World</span></div>
+    <div class="row" id="inv"><span class="lbl">Items</span></div>
+    <div class="row">
+      <div class="score" id="score"></div>
+      <div class="tools" style="margin-left:auto;display:flex;gap:6px">
+        <button class="btn" id="allItems">All items</button><button class="btn" id="noItems">No items</button><button class="btn" id="copyLink">Copy link</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="panel">
+    <div class="phead"><h2>Milestones</h2><span class="hint">Green: done. Gold: open, missing items in red. Hover an item above to see where it's needed. Click a milestone for details.</span></div>
+    <div id="mapwrap"><div id="map"><svg id="edges" aria-hidden="true"></svg></div></div>
+    <div class="detail" id="detail" hidden></div>
+  </section>
+
+  <section class="panel">
+    <div class="phead"><h2>Locations</h2><span class="hint" id="locHint"></span></div>
+    <div class="filters">
+      <input id="q" type="search" placeholder="Search locations or items" aria-label="Search locations">
+      <select id="show" aria-label="Show">
+        <option value="all">All locations</option><option value="ok">Reachable</option><option value="no">Not reachable</option>
+      </select>
+      <span id="kinds" class="row"></span>
+      <span class="active-filter" id="msFilter" hidden></span>
+    </div>
+    <div id="areas"></div>
+  </section>
+
+  <p class="note">The logic is deliberately conservative: a location counts as reachable only once you hold everything that could plausibly be needed for it, often everything for the whole dungeon or area. It has not been checked against the remake yet. Songs, the Ocarina, bottles, boss rewards, Small Keys and Boss Keys stay where the original game has them, so they are assumed and never shown as requirements. With <b>No logic</b> selected in the app, none of this applies.</p>
+</div>
+
+<script>
+(async () => {
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  let D;
+  try { D = await (await fetch('logic.json', { cache: 'no-cache' })).json(); }
+  catch (e) { document.querySelector('.wrap').insertAdjacentHTML('beforeend', '<p class="empty">Could not load logic.json. Open this page from the website, or serve the docs folder over HTTP.</p>'); return; }
+
+  const ITEM = Object.fromEntries(D.items.map(i => [i.id, i.name]));
+  const LABEL = D.milestone_labels;
+  const KINDS = { chest: 'Chests', pot: 'Pots & crates', skulltula: 'Skulltulas', scrub: 'Scrubs', freestanding: 'Freestanding' };
+  const S = { opts: {}, items: new Set(), sel: null, kinds: new Set(Object.keys(KINDS)), q: '', show: 'all', ms: null, hover: null };
+  D.options.forEach(o => S.opts[o.key] = false);
+
+  // ---- state in the URL hash, so a view can be shared: #o=1010&i=Item_Hookshot,Item_Range_Bow
+  function readHash() {
+    const h = new URLSearchParams(location.hash.slice(1));
+    const o = h.get('o') || '';
+    D.options.forEach((opt, i) => S.opts[opt.key] = o[i] === '1');
+    S.items = new Set((h.get('i') || '').split(',').filter(x => ITEM[x]));
+  }
+  function writeHash() {
+    const o = D.options.map(opt => S.opts[opt.key] ? '1' : '0').join('');
+    const parts = [];
+    if (o.includes('1')) parts.push('o=' + o);
+    if (S.items.size) parts.push('i=' + [...S.items].join(','));
+    history.replaceState(null, '', parts.length ? '#' + parts.join('&') : location.pathname);
+  }
+
+  // ---- logic (mirrors randomizer/logic.py State.update and the location predicate)
+  const combo = () => D.options.map(o => S.opts[o.key] ? '1' : '0').join('');
+  const table = () => D.tables[combo()];
+  const ruleOf = loc => D.rules[Array.isArray(loc.rule) ? loc.rule[D.combos.indexOf(combo())] : loc.rule];
+  function evaluate() {
+    const ev = {};
+    for (const m of table()) ev[m.id] = m.pre.every(p => ev[p]) && m.items.every(i => S.items.has(i));
+    return ev;
+  }
+  function allNeeds(t) {  // every item a milestone needs, including through its prerequisites
+    const need = {};
+    for (const m of t) { const s = new Set(m.items); m.pre.forEach(p => need[p].forEach(i => s.add(i))); need[m.id] = s; }
+    return need;
+  }
+  const reach = (r, ev) => r.pre.every(p => ev[p]) && r.items.every(i => S.items.has(i));
+
+  // ---- controls
+  for (const o of D.options) {
+    const b = document.createElement('button');
+    b.className = 'toggle'; b.dataset.k = o.key; b.innerHTML = '<span class="sw"></span>' + esc(o.label);
+    b.onclick = () => { S.opts[o.key] = !S.opts[o.key]; writeHash(); render(true); };
+    $('#opts').append(b);
+  }
+  for (const it of D.items) {
+    const b = document.createElement('button');
+    b.className = 'item'; b.dataset.k = it.id; b.textContent = it.name;
+    b.onclick = () => { S.items.has(it.id) ? S.items.delete(it.id) : S.items.add(it.id); writeHash(); render(); };
+    b.onmouseenter = () => { S.hover = it.id; focusItem(); };
+    b.onmouseleave = () => { S.hover = null; focusItem(); };
+    $('#inv').append(b);
+  }
+  $('#allItems').onclick = () => { S.items = new Set(D.items.map(i => i.id)); writeHash(); render(); };
+  $('#noItems').onclick = () => { S.items.clear(); writeHash(); render(); };
+  $('#copyLink').onclick = async () => {
+    try { await navigator.clipboard.writeText(location.href); $('#copyLink').textContent = 'Copied'; }
+    catch { $('#copyLink').textContent = 'Copy failed'; }
+    setTimeout(() => $('#copyLink').textContent = 'Copy link', 1500);
+  };
+  for (const [k, label] of Object.entries(KINDS)) {
+    const b = document.createElement('button');
+    b.className = 'kind'; b.textContent = label; b.setAttribute('aria-pressed', 'true');
+    b.onclick = () => { S.kinds.has(k) ? S.kinds.delete(k) : S.kinds.add(k); b.setAttribute('aria-pressed', S.kinds.has(k)); renderLocs(evaluate()); };
+    $('#kinds').append(b);
+  }
+  $('#q').oninput = e => { S.q = e.target.value.trim().toLowerCase(); renderLocs(evaluate()); };
+  $('#show').onchange = e => { S.show = e.target.value; renderLocs(evaluate()); };
+
+  // ---- milestone map: layered by depth, ordered within a layer by where the parents sit
+  let layoutKey = null;
+  function layout() {
+    const t = table(), depth = {};
+    for (const m of t) depth[m.id] = m.pre.length ? 1 + Math.max(...m.pre.map(p => depth[p])) : 0;
+    const layers = [];
+    for (const m of t) (layers[depth[m.id]] = layers[depth[m.id]] || []).push(m);
+    const pos = {};
+    layers.forEach((L, d) => {
+      if (d) L.sort((a, b) => bary(a) - bary(b));
+      L.forEach((m, i) => pos[m.id] = (i + .5) / L.length);
+    });
+    function bary(m) { return m.pre.reduce((s, p) => s + pos[p], 0) / m.pre.length; }
+    return layers;
+  }
+  function buildMap() {
+    const map = $('#map');
+    map.querySelectorAll('.layer').forEach(n => n.remove());
+    for (const L of layout()) {
+      const row = document.createElement('div');
+      row.className = 'layer';
+      for (const m of L) {
+        const n = document.createElement('div');
+        n.className = 'node'; n.dataset.id = m.id; n.tabIndex = 0; n.setAttribute('role', 'button');
+        if (m.id === 'win') n.classList.add('win');
+        n.onclick = () => select(S.sel === m.id ? null : m.id);
+        n.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); n.click(); } };
+        row.append(n);
+      }
+      map.append(row);
+    }
+  }
+  function drawEdges(ev) {
+    const map = $('#map'), svg = $('#edges'), base = map.getBoundingClientRect();
+    const box = id => map.querySelector(`.node[data-id="${id}"]`).getBoundingClientRect();
+    let out = '';
+    const chain = S.sel ? ancestors(S.sel) : new Set();
+    for (const m of table()) {
+      const b = box(m.id), x2 = b.left + b.width / 2 - base.left, y2 = b.top - base.top;
+      for (const p of m.pre) {
+        const a = box(p), x1 = a.left + a.width / 2 - base.left, y1 = a.bottom - base.top, dy = Math.max(18, (y2 - y1) / 2);
+        const cls = 'e' + (ev[p] ? ' on' : '') + (chain.has(m.id) && chain.has(p) ? ' hl' : '');
+        out += `<path class="${cls}" d="M${x1},${y1} C${x1},${y1 + dy} ${x2},${y2 - dy} ${x2},${y2}"/>`;
+      }
+    }
+    svg.setAttribute('viewBox', `0 0 ${map.scrollWidth} ${map.scrollHeight}`);
+    svg.innerHTML = out;
+  }
+  function ancestors(id) {
+    const spec = Object.fromEntries(table().map(m => [m.id, m])), seen = new Set();
+    (function walk(x) { if (seen.has(x)) return; seen.add(x); spec[x].pre.forEach(walk); })(id);
+    return seen;
+  }
+  function renderMap(ev) {
+    const key = combo();
+    if (key !== layoutKey) { buildMap(); layoutKey = key; }
+    for (const m of table()) {
+      const n = $(`#map .node[data-id="${m.id}"]`);
+      const ready = m.pre.every(p => ev[p]);
+      n.classList.toggle('done', ev[m.id]);
+      n.classList.toggle('ready', !ev[m.id] && ready);
+      n.classList.toggle('locked', !ready);
+      n.classList.toggle('sel', S.sel === m.id);
+      const st = ev[m.id] ? 'Done' : ready ? (m.items.length ? 'Needs items' : 'Open') : 'Locked';
+      n.innerHTML = `<div class="t">${esc(LABEL[m.id] || m.id)}</div><div class="st">${st}</div>` +
+        (m.items.length ? `<div class="its">${m.items.map(i => `<span class="${S.items.has(i) ? 'have' : ''}">${esc(short(i))}</span>`).join('')}</div>` : '');
+    }
+    drawEdges(ev);
+    focusItem();
+  }
+  function focusItem() {
+    const map = $('#map');
+    map.classList.toggle('focus', !!S.hover);
+    map.querySelectorAll('.node').forEach(n => {
+      const m = table().find(x => x.id === n.dataset.id);
+      n.classList.toggle('hit', !!S.hover && m.items.includes(S.hover));
+    });
+  }
+  const SHORT = { Item_Sword_Kokiri: 'Sword', Item_Range_SlingShot: 'Slingshot', Item_BombBag_Small: 'Bombs', Item_Range_Bow: 'Bow',
+    Item_GlassTruth: 'Lens', Item_Gauntlet_Silver: 'Silver G.', Item_Gauntlet_Gold: 'Gold G.', Item_Shield_Mirror: 'Mirror', Item_HeavyBoot: 'Iron Boots', Item_HoverBoot: 'Hover Boots', Item_Hammer: 'Hammer' };
+  const short = i => SHORT[i] || ITEM[i] || i;
+
+  // ---- details for the selected milestone
+  function select(id) { S.sel = id; render(); if (id) $('#detail').scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+  function chipsFor(pre, items, ev) {
+    const c = pre.map(p => `<span class="chip ms ${ev[p] ? 'ok' : ''}" data-ms="${p}">${esc(LABEL[p] || p)}</span>`)
+      .concat(items.map(i => `<span class="chip it ${S.items.has(i) ? 'ok' : ''}">${esc(ITEM[i] || i)}</span>`));
+    return c.length ? c.join('') : '<span class="chip none">Nothing: open from the start</span>';
+  }
+  function renderDetail(ev) {
+    const d = $('#detail');
+    if (!S.sel) { d.hidden = true; return; }
+    const m = table().find(x => x.id === S.sel);
+    if (!m) { S.sel = null; d.hidden = true; return; }
+    const need = [...allNeeds(table())[m.id]];
+    const missing = need.filter(i => !S.items.has(i));
+    const direct = D.locations.filter(l => ruleOf(l).pre.includes(m.id)).length;
+    const after = table().filter(x => x.pre.includes(m.id)).map(x => x.id);
+    d.hidden = false;
+    d.innerHTML = `<h3>${esc(LABEL[m.id] || m.id)}</h3>
+      <div class="kv">
+        <span>Needs</span><div class="chips">${chipsFor(m.pre, m.items, ev)}</div>
+        <span>All items</span><div class="chips">${need.length ? need.map(i => `<span class="chip it ${S.items.has(i) ? 'ok' : ''}">${esc(ITEM[i])}</span>`).join('') : '<span class="chip none">None</span>'}</div>
+        <span>Status</span><div>${ev[m.id] ? 'Done with your items.' : missing.length ? `Missing ${missing.length} item${missing.length > 1 ? 's' : ''} (counting earlier milestones).` : 'Waiting on earlier milestones.'}</div>
+        <span>Unlocks</span><div class="chips">${after.length ? after.map(x => `<span class="chip ms ${ev[x] ? 'ok' : ''}" data-ms="${x}">${esc(LABEL[x] || x)}</span>`).join('') : '<span class="chip">Nothing further</span>'}</div>
+        <span>Locations</span><div>${direct} location${direct === 1 ? '' : 's'} need this directly. <button class="btn" id="filterMs">Show them</button></div>
+      </div>`;
+    $('#filterMs').onclick = () => { S.ms = m.id; renderLocs(ev); $('#areas').scrollIntoView({ behavior: 'smooth' }); };
+  }
+
+  // ---- locations
+  const open = new Set();
+  function renderLocs(ev) {
+    const q = S.q;
+    const groups = new Map();
+    let shown = 0;
+    for (const l of D.locations) {
+      if (!S.kinds.has(l.kind)) continue;
+      const r = ruleOf(l), ok = reach(r, ev);
+      if (S.show === 'ok' && !ok) continue;
+      if (S.show === 'no' && ok) continue;
+      if (S.ms && !r.pre.includes(S.ms)) continue;
+      if (q && !(l.name + ' ' + l.vanilla_name + ' ' + r.items.map(i => ITEM[i]).join(' ')).toLowerCase().includes(q)) continue;
+      if (!groups.has(l.area)) groups.set(l.area, { name: l.area_name, list: [] });
+      groups.get(l.area).list.push([l, r, ok]);
+      shown++;
+    }
+    const mf = $('#msFilter');
+    mf.hidden = !S.ms;
+    if (S.ms) { mf.innerHTML = `Needs ${esc(LABEL[S.ms])} <button class="btn" id="clearMs">Clear</button>`; $('#clearMs').onclick = () => { S.ms = null; renderLocs(evaluate()); }; }
+    const total = D.locations.length, okAll = D.locations.filter(l => reach(ruleOf(l), ev)).length;
+    $('#locHint').textContent = `${shown} shown. Green dot: reachable with your items.`;
+    if (!shown) { $('#areas').innerHTML = '<div class="empty">No locations match.</div>'; return; }
+    const sorted = [...groups.entries()].sort((a, b) => a[1].name.localeCompare(b[1].name));
+    const filtering = !!(q || S.ms);
+    $('#areas').innerHTML = sorted.map(([area, g]) => {
+      const k = g.list.filter(x => x[2]).length;
+      return `<details class="area" data-area="${esc(area)}" ${filtering || open.has(area) ? 'open' : ''}>
+        <summary><span class="an">${esc(g.name)}</span><span class="bar"><i style="width:${(100 * k / g.list.length).toFixed(1)}%"></i></span><span class="cnt">${k} / ${g.list.length}</span></summary>
+        ${g.list.map(([l, r, ok]) => {
+          const nm = l.name.startsWith(g.name + ', ') ? l.name.slice(g.name.length + 2) : l.name.startsWith(g.name + ': ') ? l.name.slice(g.name.length + 2) : l.name;
+          return `<div class="loc ${ok ? 'ok' : ''}"><span class="dot" title="${ok ? 'Reachable' : 'Not reachable yet'}"></span>
+            <div><div class="nm">${esc(nm)}</div><div class="sub2">${esc(KINDS[l.kind] ? KINDS[l.kind].replace(/s$/, '').replace('Pots & crate', 'Pot / crate') : l.kind)} · original item <b>${esc(l.vanilla_name)}</b>${l.ages.includes('any') ? '' : ' · ' + esc(l.ages.join(', '))}</div></div>
+            <div class="chips rq">${chipsFor(r.pre, r.items, ev)}</div></div>`;
+        }).join('')}</details>`;
+    }).join('');
+    $('#areas').querySelectorAll('details.area').forEach(d => d.ontoggle = () => { if (!filtering) d.open ? open.add(d.dataset.area) : open.delete(d.dataset.area); });
+    renderScore(ev, okAll, total);
+  }
+  function renderScore(ev, okAll, total) {
+    const t = table(), done = t.filter(m => ev[m.id]).length;
+    $('#score').innerHTML = `<span><b>${okAll}</b> / ${total} locations reachable</span><span><b>${done}</b> / ${t.length} milestones</span>` +
+      (ev.win ? '<span class="win"><b>Seed beatable</b></span>' : '');
+  }
+
+  // milestone chips anywhere select that milestone
+  document.addEventListener('click', e => { const c = e.target.closest('.chip.ms'); if (c) { select(c.dataset.ms); $('#map').scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } });
+
+  function render() {
+    D.options.forEach(o => $(`#opts .toggle[data-k="${o.key}"]`).setAttribute('aria-pressed', S.opts[o.key]));
+    D.items.forEach(i => $(`#inv .item[data-k="${i.id}"]`).setAttribute('aria-pressed', S.items.has(i.id)));
+    const ev = evaluate();
+    renderMap(ev); renderDetail(ev); renderLocs(ev);
+  }
+  readHash();
+  window.addEventListener('hashchange', () => { readHash(); render(); });
+  new ResizeObserver(() => drawEdges(evaluate())).observe($('#map'));
+  render();
+})();
+</script>
+</body>
+</html>
