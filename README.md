@@ -184,6 +184,12 @@ py randomize.py --seed 1234 --open-forest --open-deku --open-door --open-fountai
 py randomize.py --seed 1234 --no-logic            # items anywhere; the seed may be unbeatable
 ```
 
+**Logic map.** [sgurgurich.github.io/oot-remake-rando/logic.html](https://sgurgurich.github.io/oot-remake-rando/logic.html)
+shows the logic visually: the milestone chain, what every location needs, and what you can reach with the
+items you pick, for any mix of open options. It reads `docs/logic.json`, which `py tools/export_logic.py`
+writes from [randomizer/logic.py](randomizer/logic.py); run it after changing the logic (CI fails if it's
+out of date).
+
 **Logic / No logic.** With logic (default) every item is placed where it can be reached with the items
 found before it, and every seed is checked to be beatable. With no logic every location's rule is
 "always", so items land anywhere (still in a form the location can hold, and dungeon items still follow

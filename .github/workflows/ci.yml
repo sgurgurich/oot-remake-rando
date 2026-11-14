@@ -28,5 +28,8 @@ jobs:
       - name: Everything compiles
         run: python -m compileall -q randomize.py gui.py OoTRando.pyw build_exe.py randomizer tools tests
 
+      - name: Logic map data matches the logic
+        run: python tools/export_logic.py --check
+
       - name: Seeds are beatable under every preset
         run: python tests/test_seeds.py 60
