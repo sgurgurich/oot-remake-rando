@@ -1,6 +1,6 @@
 # Download stats
 
-Updated 2026-11-26 (UTC) by the Download stats workflow. Counts are GitHub's per-file download counters.
+Updated 2026-11-27 (UTC) by the Download stats workflow. Counts are GitHub's per-file download counters.
 
 **20 installs, 6 updates** across all releases.
 
@@ -10,6 +10,7 @@ Installs are downloads of `OoTRando.exe` (the download page and direct links). U
 
 | Day | New installs | New updates |
 | --- | ---: | ---: |
+| 2026-11-27 | 0 | 0 |
 | 2026-11-26 | 1 | 0 |
 | 2026-11-25 | 1 | 0 |
 | 2026-11-24 | 0 | 0 |
